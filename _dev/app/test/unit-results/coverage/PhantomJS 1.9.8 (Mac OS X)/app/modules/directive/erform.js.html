@@ -1,0 +1,2083 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app/modules/directive/erform.js</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../../../prettify.css">
+
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Helvetica Neue, Helvetica,Arial;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 10em;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Consolas, Menlo, Monaco, monospace;
+            margin: 0;
+            padding: 0;
+            line-height: 14px;
+            font-size: 14px;
+            -moz-tab-size: 2;
+            -o-tab-size:  2;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { text-decoration: none; color: #000; }
+        div.coverage-summary a:visited { text-decoration: none; color: #333; }
+        div.coverage-summary a:hover { text-decoration: underline; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: url("https://yui-s.yahooapis.com/3.6.0/build/datatable-sort/assets/skins/sam/sort-arrow-sprite.png") no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">app/modules/directive/erform.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">0.33% <small>(1 / 299)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 132)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 60)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">0.33% <small>(1 / 299)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">app/modules/directive/</a> &#187; erform.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">angular.module('ERChart').directive('erform', <span class="fstat-no" title="function not covered" >function($state, constants, $timeout, cache, $log, $stateParams, $ionicPopup, $q, erutils, $document) {</span>
+<span class="cstat-no" title="statement not covered" >    return  <span class="fstat-no" title="function not covered" >function($scope, $elem, $attr, $transclude){</span></span>
+<span class="cstat-no" title="statement not covered" >    var currentChart = {}; </span>
+<span class="cstat-no" title="statement not covered" >    var allCharts = []; </span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var navigateToHome = <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >      $state.go('root.home');</span>
+<span class="cstat-no" title="statement not covered" >      $timeout(<span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >        setDefault();</span>
+<span class="cstat-no" title="statement not covered" >        cache.broadcastCacheEvent('Updated');</span>
+      });
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var showDiscardChartConfirm = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >       var confirmPopup = $ionicPopup.confirm({</span>
+         title: 'Discard New Chart?',
+         template: 'Are you sure you want to navigate away from this page?'
+       });
+<span class="cstat-no" title="statement not covered" >       confirmPopup.then(<span class="fstat-no" title="function not covered" >function(res) {</span></span>
+<span class="cstat-no" title="statement not covered" >         if(res) {</span>
+<span class="cstat-no" title="statement not covered" >             navigateToHome();</span>
+           // console.log('You are sure');
+         } else {
+<span class="cstat-no" title="statement not covered" >             return false;</span>
+           // console.log('You are not sure');
+         }
+       });
+     };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var showPatientIdPopupAndPrint = <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >      return $ionicPopup.show({</span>
+        template: '&lt;input type="text" ng-model="chart.id"&gt;',
+        title: 'Please enter a patient id.',
+        scope: $scope,
+        buttons: [
+          { text: 'Cancel' },
+          {
+            text: '&lt;b&gt;Print&lt;/b&gt;',
+            type: 'button-positive',
+            onTap: <span class="fstat-no" title="function not covered" >function(e) {</span>
+<span class="cstat-no" title="statement not covered" >              if (!$scope.chart.id) {</span>
+                //don't allow the user to close unless he enters wifi password
+<span class="cstat-no" title="statement not covered" >                e.preventDefault();</span>
+              } else {
+<span class="cstat-no" title="statement not covered" >                return $scope.chart.id;</span>
+              }
+            }
+          }]
+      });
+    };
+<span class="cstat-no" title="statement not covered" >    var showPatientIdPopup = <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >      return $ionicPopup.show({</span>
+        template: '&lt;input type="text" ng-model="chart.id"&gt;',
+        title: 'Please enter a patient id.',
+        scope: $scope,
+        buttons: [
+          { text: 'Cancel' },
+          {
+            text: '&lt;b&gt;Save&lt;/b&gt;',
+            type: 'button-positive',
+            onTap: <span class="fstat-no" title="function not covered" >function(e) {</span>
+<span class="cstat-no" title="statement not covered" >              if (!$scope.chart.id) {</span>
+                //don't allow the user to close unless he enters wifi password
+<span class="cstat-no" title="statement not covered" >                e.preventDefault();</span>
+              } else {
+<span class="cstat-no" title="statement not covered" >                return $scope.chart.id;</span>
+              }
+            }
+          }]
+      });
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var _showPatientIdPopup = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >      $scope.chart.id = '';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      var patientIdPopup = $ionicPopup.show({</span>
+        template: '&lt;input type="text" ng-model="chart.id"&gt;',
+        title: 'Please enter a patient id.',
+        scope: $scope,
+        buttons: [
+          { text: 'Cancel' },
+          {
+            text: '&lt;b&gt;Save&lt;/b&gt;',
+            type: 'button-positive',
+            onTap: <span class="fstat-no" title="function not covered" >function(e) {</span>
+<span class="cstat-no" title="statement not covered" >              if (!$scope.chart.id) {</span>
+                //don't allow the user to close unless he enters wifi password
+<span class="cstat-no" title="statement not covered" >                e.preventDefault();</span>
+              } else {
+<span class="cstat-no" title="statement not covered" >                return $scope.chart.id;</span>
+              }
+            }
+          }]
+      });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      patientIdPopup.then(<span class="fstat-no" title="function not covered" >function(res) {</span></span>
+<span class="cstat-no" title="statement not covered" >        console.log('Tapped!', res);</span>
+<span class="cstat-no" title="statement not covered" >        if (!res){</span>
+<span class="cstat-no" title="statement not covered" >          $state.go('root.home');</span>
+        } else {
+          // initAddChart();
+        }
+      });
+     };
+  
+<span class="cstat-no" title="statement not covered" >    var formFieldDefaults = constants.values;</span>
+<span class="cstat-no" title="statement not covered" >    $scope.chart = {};</span>
+<span class="cstat-no" title="statement not covered" >    $scope.options = constants.options;</span>
+<span class="cstat-no" title="statement not covered" >    $scope.resp = constants.respiratory_exam;</span>
+<span class="cstat-no" title="statement not covered" >    $scope.abdo = constants.abdominal_exam;</span>
+<span class="cstat-no" title="statement not covered" >    $scope.heent = constants.heent;</span>
+<span class="cstat-no" title="statement not covered" >    $scope.cardiov = constants.cardio_vascular;</span>
+<span class="cstat-no" title="statement not covered" >    $scope.neuro = constants.neurological_exam;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    $scope.physical_exam_modules = {</span>
+      'Respiratory Exam' : constants.respiratory_exam,
+      'Abdominal Exam' : constants.abdominal_exam,
+      'Heent' : constants.heent,
+      'Cardio Vascular' : constants.cardio_vascular,
+      'Neurological Exam' : constants.neurological_exam
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var formValueSetter = <span class="fstat-no" title="function not covered" >function(dataObj, flag, tagType){</span></span>
+        // console.log(dataObj)
+<span class="cstat-no" title="statement not covered" >        if (flag === 'status') {</span>
+<span class="cstat-no" title="statement not covered" >            return 0;</span>
+        } else <span class="cstat-no" title="statement not covered" >if (flag === 'textarea') {</span>
+<span class="cstat-no" title="statement not covered" >            return '';</span>
+        } else <span class="cstat-no" title="statement not covered" >if (flag === 'checkbox') {</span>
+<span class="cstat-no" title="statement not covered" >            return false;</span>
+        } else <span class="cstat-no" title="statement not covered" >if (flag === 'date') {</span>
+<span class="cstat-no" title="statement not covered" >          return moment().format('YYYY-MM-DD');</span>
+        } else <span class="cstat-no" title="statement not covered" >if (flag === 'time') {</span>
+<span class="cstat-no" title="statement not covered" >          return moment().format('hh:mm: A');</span>
+        }
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var getSavedFieldValue = <span class="fstat-no" title="function not covered" >function(savedValues, flag, tagType, cat_name){</span></span>
+<span class="cstat-no" title="statement not covered" >        if (angular.isObject(savedValues) &amp;&amp; !_.isEmpty(savedValues)) {</span>
+<span class="cstat-no" title="statement not covered" >                if (!tagType){</span>
+<span class="cstat-no" title="statement not covered" >                    return savedValues[flag];</span>
+                } else <span class="cstat-no" title="statement not covered" >if (tagType === 'input'){</span>
+<span class="cstat-no" title="statement not covered" >                    return _.pick(savedValues, flag)[flag];</span>
+                } else <span class="cstat-no" title="statement not covered" >if (tagType === 'checkbox') {</span>
+<span class="cstat-no" title="statement not covered" >                    if (!savedValues[flag]) {</span>
+<span class="cstat-no" title="statement not covered" >                        return false;</span>
+                    } else {
+<span class="cstat-no" title="statement not covered" >                        return savedValues[flag];</span>
+                    } 
+                } else <span class="cstat-no" title="statement not covered" >if (tagType === 'textarea') {</span>
+<span class="cstat-no" title="statement not covered" >                    if (!savedValues[flag]) {</span>
+<span class="cstat-no" title="statement not covered" >                        return '';</span>
+                    } else {
+<span class="cstat-no" title="statement not covered" >                        return savedValues[flag];</span>
+                    }
+                }
+        } else {
+<span class="cstat-no" title="statement not covered" >            return formValueSetter(null, 'status');</span>
+        }
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var setModuleStatus = <span class="fstat-no" title="function not covered" >function(cat, state, param_data, fn){</span></span>
+<span class="cstat-no" title="statement not covered" >        if (cat) {</span>
+<span class="cstat-no" title="statement not covered" >            $scope.ExaminationForm[cat+'_status'].$modelValue = angular.isString(param_data) || !param_data?</span>
+              formValueSetter(null, 'status') : getSavedFieldValue(param_data[cat], 'status');
+<span class="cstat-no" title="statement not covered" >            $scope.ExaminationForm[cat+'_status'].$$writeModelToScope();</span>
+<span class="cstat-no" title="statement not covered" >            $scope.ExaminationForm[cat+'_status'].$render();</span>
+        }
+    };
+<span class="cstat-no" title="statement not covered" >    var setCheckBoxState = <span class="fstat-no" title="function not covered" >function(fieldName, cat, param_data){</span></span>
+<span class="cstat-no" title="statement not covered" >        $scope.ExaminationForm[fieldName.name].$viewValue = angular.isString(param_data) || !param_data?</span>
+          formValueSetter(formFieldDefaults.physical_exam[cat], 'checkbox') : 
+          getSavedFieldValue(param_data[cat], fieldName.model, 'checkbox');
+<span class="cstat-no" title="statement not covered" >        $scope.ExaminationForm[fieldName.name].$render();</span>
+<span class="cstat-no" title="statement not covered" >        $scope.ExaminationForm[fieldName.name].$commitViewValue();</span>
+    };
+<span class="cstat-no" title="statement not covered" >    var setNoteState = <span class="fstat-no" title="function not covered" >function(field, param_data){</span></span>
+<span class="cstat-no" title="statement not covered" >        if ($scope.ExaminationForm[field.name]) {</span>
+<span class="cstat-no" title="statement not covered" >            $scope.ExaminationForm[field.name].$viewValue = angular.isString(param_data) || !param_data?</span>
+              formValueSetter(formFieldDefaults.physical_exam[field.module][field.name], 'textarea') : 
+              getSavedFieldValue(param_data[field.module], field.model, 'textarea', field.module);
+<span class="cstat-no" title="statement not covered" >            $scope.ExaminationForm[field.name].$render();</span>
+<span class="cstat-no" title="statement not covered" >            $scope.ExaminationForm[field.name].$commitViewValue();</span>
+        }
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var setDefault = <span class="fstat-no" title="function not covered" >function(state_data){</span></span>
+<span class="cstat-no" title="statement not covered" >      var deferred = $q.defer();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.date.$viewValue = angular.isString(state_data) || !state_data?</span>
+          formValueSetter(formFieldDefaults, 'date') : getSavedFieldValue(state_data, 'date', 'input');
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.time.$viewValue = angular.isString(state_data) || !state_data?</span>
+          formValueSetter(formFieldDefaults, 'time') : getSavedFieldValue(state_data, 'time', 'input');
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.date.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.date.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.time.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.time.$commitViewValue();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.id.$viewValue = angular.isString(state_data) || !state_data?</span>
+          formValueSetter(formFieldDefaults, 'id', 'input') : getSavedFieldValue(state_data, 'id', 'input');
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.id.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.id.$commitViewValue();</span>
+        
+<span class="cstat-no" title="statement not covered" >        for (var i = 0, list = ['heent', 'resp', 'abdo', 'cardiov', 'neuro'], listLen = list.length; i&lt;listLen; i++){</span>
+<span class="cstat-no" title="statement not covered" >            setModuleStatus($scope[list[i]].cat_name, </span>
+<span class="fstat-no" title="function not covered" >                function() {</span>
+<span class="cstat-no" title="statement not covered" >                    if (angular.isObject(state_data)){</span>
+                        // get saved data when editting
+<span class="cstat-no" title="statement not covered" >                        return getSavedFieldValue(state_data[$scope[list[i]].cat_name], 'status', 'input', $scope[list[i]].cat_name);</span>
+                    } else {
+                        // set module:default
+<span class="cstat-no" title="statement not covered" >                        return setModuleStatus(list[i], 'status', 'default');</span>
+                    }
+                },
+                state_data
+                );
+        };
+        // resp
+<span class="cstat-no" title="statement not covered" >        for (var i = 0, </span>
+            list = [
+                {name: 'good_bilat_a_e', model: 'goodBilatA_E'},
+                {name: 'wheezing', model: 'wheezing'},
+                {name: 'crackle', model: 'crackle'}
+            ], listLen = list.length; i&lt;listLen; i++) {
+<span class="cstat-no" title="statement not covered" >                setCheckBoxState(list[i], 'respiratory_exam', state_data);</span>
+            }
+        // heent
+<span class="cstat-no" title="statement not covered" >        for (var i = 0, </span>
+            list = [
+                {name: 'throat_clear', model: 'throatClear'},
+                {name: 'tm', model: 'tm'},
+                {name: 'neck_supple', model: 'neckSupple'}
+            ], listLen = list.length; i&lt;listLen; i++) {
+<span class="cstat-no" title="statement not covered" >                setCheckBoxState(list[i], 'heent', state_data);</span>
+            }
+        // abdo
+<span class="cstat-no" title="statement not covered" >        for (var i = 0, </span>
+            list = [
+                {name: 'soft_and_non_tender', model: 'softAndNonTender'},
+                {name: 'bsp', model: 'bsp'},
+                {name: 'mass', model: 'mass'},
+                {name: 'organomegaly', model: 'organomegaly'},
+                {name: 'no_sign_of_peritonitis', model: 'noSignOfPeritonitis'},
+                {name: 'fpp_and_equal', model: 'fppAndEqual'}
+            ], listLen = list.length; i&lt;listLen; i++) {
+<span class="cstat-no" title="statement not covered" >                setCheckBoxState(list[i], 'abdominal_exam', state_data);</span>
+            }
+&nbsp;
+        // cardio
+<span class="cstat-no" title="statement not covered" >        for (var i = 0, </span>
+            list = [
+                {name: 's1_s2_present', model: 's1S2Present'},
+                {name: 's3', model: 's3'},
+                {name: 's4', model: 's4'},
+                {name: 'murmur', model: 'murmur'},
+                {name: 'ppp', model: 'ppp'},
+                {name: 'jvd', model: 'jvd'}
+            ], listLen = list.length; i&lt;listLen; i++) {
+<span class="cstat-no" title="statement not covered" >                setCheckBoxState(list[i], 'cardio_vascular', state_data);</span>
+            }
+        
+        // neuro
+<span class="cstat-no" title="statement not covered" >        for (var i = 0, </span>
+            list = [
+                {name: 'cerebellum_exam', model: 'cerebellumExam'},
+                {name: 'power', model: 'power'},
+                {name: 'sensation', model: 'sensation'},
+                {name: 'tone', model: 'tone'},
+                {name: 'reflex', model: 'reflex'},
+                {name: 'cnii_x_ii', model: 'cniixii'}
+            ], listLen = list.length; i&lt;listLen; i++) {
+<span class="cstat-no" title="statement not covered" >                setCheckBoxState(list[i], 'neurological_exam', state_data);</span>
+            }
+        // module notes
+<span class="cstat-no" title="statement not covered" >        for (var i = 0, </span>
+            list = [
+                {name: 'heent_note', model: 'heentNote', module: 'heent'},
+                {name: 'respiratory_exam_note', model: 'respiratoryExamNote', module: 'respiratory_exam'},
+                {name: 'abdominal_exam_note', model: 'abdominalExamNote', module: 'abdominal_exam'},
+                {name: 'cardio_vascular_note', model: 'cardioVascularNote', module: 'cardio_vascular'},
+                {name: 'neurological_exam_note', model: 'neurologicalExamNote', module: 'neurological_exam'},
+            ], listLen = list.length; i&lt;listLen; i++) {
+<span class="cstat-no" title="statement not covered" >                setNoteState(list[i], state_data);</span>
+            }
+&nbsp;
+      // set notes and render
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.hpi.$viewValue = angular.isString(state_data) || !state_data?</span>
+          formValueSetter(formFieldDefaults.er_card, 'hpi', 'textarea') : getSavedFieldValue(state_data, 'hpi', 'textarea');
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.pmhx.$viewValue = angular.isString(state_data) || !state_data?</span>
+          formValueSetter(formFieldDefaults.er_card, 'pmhx', 'textarea') : getSavedFieldValue(state_data, 'pmhx', 'textarea');
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.medication.$viewValue = angular.isString(state_data) || !state_data?</span>
+          formValueSetter(formFieldDefaults.er_card, 'medication', 'textarea') : getSavedFieldValue(state_data, 'medication', 'textarea');
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.allergies.$viewValue = angular.isString(state_data) || !state_data?</span>
+          formValueSetter(formFieldDefaults.er_card, 'allergies', 'textarea') : getSavedFieldValue(state_data, 'allergies', 'textarea');
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.notes.$viewValue = angular.isString(state_data) || !state_data?</span>
+          formValueSetter(formFieldDefaults.physical_exam, 'notes', 'textarea') : getSavedFieldValue(state_data, 'notes', 'textarea');
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.diagnosis.$viewValue = angular.isString(state_data) || !state_data?</span>
+          formValueSetter(formFieldDefaults, 'diagnosis', 'textarea') : getSavedFieldValue(state_data, 'diagnosis', 'textarea');
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.discharge_instruction.$viewValue = angular.isString(state_data) || !state_data?</span>
+          formValueSetter(formFieldDefaults, 'discharge_instruction', 'textarea') : getSavedFieldValue(state_data, 'discharge_instruction', 'textarea');
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.hpi.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.pmhx.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.medication.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.allergies.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.notes.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.diagnosis.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.discharge_instruction.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.hpi.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.pmhx.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.medication.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.allergies.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.notes.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.diagnosis.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.discharge_instruction.$commitViewValue();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      deferred.resolve($scope.ExaminationForm);</span>
+<span class="cstat-no" title="statement not covered" >      return deferred.promise;</span>
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var checkChart = <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >      var deferred = $q.defer();</span>
+<span class="cstat-no" title="statement not covered" >      if (!$scope.chart.id || $scope.chart.id === ''){</span>
+<span class="cstat-no" title="statement not covered" >        deferred.reject('req:id');</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        deferred.resolve($scope.chart);</span>
+      }
+<span class="cstat-no" title="statement not covered" >      return deferred.promise;</span>
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var addChart = <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >      var deferred = $q.defer();</span>
+<span class="cstat-no" title="statement not covered" >      allCharts.unshift(angular.extend($scope.chart, {</span>
+        _erid: new Date() + $scope.chart.id,
+        date: moment().format('YYYY-MM-DD'),
+        time: moment().format('hh:mm: A')
+      }));
+<span class="cstat-no" title="statement not covered" >      deferred.resolve(allCharts);</span>
+<span class="cstat-no" title="statement not covered" >      return deferred.promise;</span>
+    };
+<span class="cstat-no" title="statement not covered" >    var filterCharts = <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >      var deferredFilteredCharts = $q.defer();</span>
+<span class="cstat-no" title="statement not covered" >      allCharts = erutils.filterCharts(allCharts, $stateParams.formId);</span>
+<span class="cstat-no" title="statement not covered" >      deferredFilteredCharts.resolve(allCharts);</span>
+<span class="cstat-no" title="statement not covered" >      return deferredFilteredCharts.promise;</span>
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var initNewChart = <span class="fstat-no" title="function not covered" >function(chartStatus){</span></span>
+<span class="cstat-no" title="statement not covered" >      cache.getLocalData().then(<span class="fstat-no" title="function not covered" >function(successData){</span></span>
+<span class="cstat-no" title="statement not covered" >        if (!successData) {</span>
+<span class="cstat-no" title="statement not covered" >          allCharts = []</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >          allCharts = successData;</span>
+        }
+      }).then(<span class="fstat-no" title="function not covered" >function(){</span>
+<span class="cstat-no" title="statement not covered" >        if (angular.isObject(chartStatus)) {</span>
+<span class="cstat-no" title="statement not covered" >            addChart().then(<span class="fstat-no" title="function not covered" >function(updatedCharts){</span></span>
+<span class="cstat-no" title="statement not covered" >              cache.writeLocalData(updatedCharts).then(<span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >                navigateToHome();</span>
+              });
+            });
+        } else {
+<span class="cstat-no" title="statement not covered" >          showPatientIdPopup().then(<span class="fstat-no" title="function not covered" >function(popUpResult){</span></span>
+<span class="cstat-no" title="statement not covered" >            if (!popUpResult){</span>
+<span class="cstat-no" title="statement not covered" >              $state.go('root.home');</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >              addChart().then(<span class="fstat-no" title="function not covered" >function(newChartsArray){</span></span>
+<span class="cstat-no" title="statement not covered" >                cache.writeLocalData(newChartsArray).then(<span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >                  navigateToHome();</span>
+                });
+              });
+            }
+          })
+        }
+      })
+    };
+<span class="cstat-no" title="statement not covered" >    var initEditChart = <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >      cache.getLocalData().then(<span class="fstat-no" title="function not covered" >function(successData){</span></span>
+<span class="cstat-no" title="statement not covered" >        if (!successData) {</span>
+<span class="cstat-no" title="statement not covered" >          allCharts = []</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >          allCharts = successData;</span>
+        }
+      }).then(<span class="fstat-no" title="function not covered" >function(){</span>
+<span class="cstat-no" title="statement not covered" >        angular.forEach(allCharts, <span class="fstat-no" title="function not covered" >function(chart, key){</span></span>
+<span class="cstat-no" title="statement not covered" >          if ($stateParams.formId === chart.id) {</span>
+<span class="cstat-no" title="statement not covered" >            setDefault(chart).then(<span class="fstat-no" title="function not covered" >function(formScope){</span></span>
+<span class="cstat-no" title="statement not covered" >              formScope.$setPristine();</span>
+<span class="cstat-no" title="statement not covered" >              formScope.$setUntouched();</span>
+            });
+<span class="cstat-no" title="statement not covered" >            currentChart = chart;</span>
+          }
+        });
+      });
+    };
+<span class="cstat-no" title="statement not covered" >    var initSaveChart = <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >      console.log('---initializing SaveChart---')</span>
+<span class="cstat-no" title="statement not covered" >      if ($state.is('root.form')){</span>
+<span class="cstat-no" title="statement not covered" >        console.log('---state.is root.form: creating new chart---')</span>
+<span class="cstat-no" title="statement not covered" >        checkChart().then(<span class="fstat-no" title="function not covered" >function(chartStatus){</span></span>
+<span class="cstat-no" title="statement not covered" >          console.log('---chartStatus:valid &gt; moving on..---')</span>
+<span class="cstat-no" title="statement not covered" >          initNewChart(chartStatus);</span>
+        }, <span class="fstat-no" title="function not covered" >function(reason){</span>
+<span class="cstat-no" title="statement not covered" >          console.log('---chartStatus:invalid &gt; moving on..---')</span>
+<span class="cstat-no" title="statement not covered" >          initNewChart(reason)</span>
+        });
+      } else {
+<span class="cstat-no" title="statement not covered" >        console.log('---state.is root.edit: processing new form---')</span>
+<span class="cstat-no" title="statement not covered" >        filterCharts().then(<span class="fstat-no" title="function not covered" >function(newChartsArray){</span></span>
+<span class="cstat-no" title="statement not covered" >          allCharts = newChartsArray;</span>
+<span class="cstat-no" title="statement not covered" >          addChart().then(<span class="fstat-no" title="function not covered" >function(updatedCharts){</span></span>
+<span class="cstat-no" title="statement not covered" >            console.log('---adding new chart..---')</span>
+<span class="cstat-no" title="statement not covered" >            cache.writeLocalData(updatedCharts).then(<span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >              console.log('---new chart add to local store successfully...---')</span>
+            }).finally(<span class="fstat-no" title="function not covered" >function(){</span>
+<span class="cstat-no" title="statement not covered" >              console.log('---all clear &gt; going back to home.---')</span>
+<span class="cstat-no" title="statement not covered" >              navigateToHome();</span>
+            });
+          });
+        });
+      }
+    };
+&nbsp;
+    // INIT PRINT
+<span class="cstat-no" title="statement not covered" >    var prepPageToPrint = <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.date.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.date.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.time.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.time.$commitViewValue();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.heent_note.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.heent_note.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.respiratory_exam_note.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.respiratory_exam_note.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.abdominal_exam_note.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.abdominal_exam_note.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.cardio_vascular_note.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.cardio_vascular_note.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.neurological_exam_note.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.neurological_exam_note.$commitViewValue();</span>
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.id.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.id.$commitViewValue();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.good_bilat_a_e.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.good_bilat_a_e.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.wheezing.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.wheezing.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.crackle.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.crackle.$commitViewValue();</span>
+&nbsp;
+      //render cardio values
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.s1_s2_present.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.s1_s2_present.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.s3.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.s3.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.s4.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.s4.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.ppp.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.ppp.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.murmur.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.murmur.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.jvd.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.jvd.$commitViewValue();</span>
+&nbsp;
+      // render abdo
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.soft_and_non_tender.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.soft_and_non_tender.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.bsp.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.bsp.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.fpp_and_equal.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.fpp_and_equal.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.organomegaly.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.organomegaly.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.no_sign_of_peritonitis.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.no_sign_of_peritonitis.$commitViewValue();</span>
+&nbsp;
+      // render heent
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.throat_clear.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.throat_clear.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.tm.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.tm.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.neck_supple.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.neck_supple.$commitViewValue();</span>
+&nbsp;
+      // set neuro
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.cerebellum_exam.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.cerebellum_exam.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.power.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.power.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.sensation.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.sensation.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.tone.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.tone.$commitViewValue();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.reflex.$render();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.ExaminationForm.reflex.$commitViewValue();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      var page = document.getElementById("form");</span>
+<span class="cstat-no" title="statement not covered" >      return page;</span>
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var printDone = <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >      angular.forEach($elem.parent().children(), <span class="fstat-no" title="function not covered" >function(value, key){</span></span>
+<span class="cstat-no" title="statement not covered" >        if (key &gt;= 2){</span>
+<span class="cstat-no" title="statement not covered" >          console.log(value.remove());</span>
+        }
+      });
+<span class="cstat-no" title="statement not covered" >      $scope.chart.printed = true;</span>
+<span class="cstat-no" title="statement not covered" >      initSaveChart();</span>
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var initPrint = <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >      var printPage = prepPageToPrint();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      var parentElem = angular.element($elem[0].parentNode);</span>
+<span class="cstat-no" title="statement not covered" >      var formElem = angular.element($elem.parent());</span>
+<span class="cstat-no" title="statement not covered" >      while ($elem.parent()[0].children.length &lt;= 6) {</span>
+<span class="cstat-no" title="statement not covered" >        parentElem.append(formElem.html());</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      ionic.Platform.ready(<span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >        cordova.plugins.printer.print(printPage, 'er-pid-' + $scope.chart.id || 'print', <span class="fstat-no" title="function not covered" >function () {</span></span>
+            // alert('printing finished or canceled')
+<span class="cstat-no" title="statement not covered" >            printDone();</span>
+        });
+      });
+&nbsp;
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    $scope.$on('PageEvent:Print', <span class="fstat-no" title="function not covered" >function(event, args){</span></span>
+     // console.log('Event@erForm:: PageEvent:Print')
+<span class="cstat-no" title="statement not covered" >      checkChart().then(<span class="fstat-no" title="function not covered" >function(chart){</span></span>
+<span class="cstat-no" title="statement not covered" >        initPrint();</span>
+        // document.addEventListener("deviceready", initPrint, false);
+        },<span class="fstat-no" title="function not covered" >function(checkFailData){</span>
+<span class="cstat-no" title="statement not covered" >            showPatientIdPopupAndPrint().then(<span class="fstat-no" title="function not covered" >function(popupResult){</span></span>
+<span class="cstat-no" title="statement not covered" >              if (!popupResult){</span>
+              } else {
+<span class="cstat-no" title="statement not covered" >                initPrint();</span>
+                // document.addEventListener("deviceready", initPrint, false);
+              }
+            });
+      });
+    });
+<span class="cstat-no" title="statement not covered" >    $scope.$on('PageEvent:SaveChart', <span class="fstat-no" title="function not covered" >function(event, args){</span></span>
+<span class="cstat-no" title="statement not covered" >     console.log('Event@erForm:: PageEvent:SaveChart')</span>
+<span class="cstat-no" title="statement not covered" >     initSaveChart();</span>
+    });
+<span class="cstat-no" title="statement not covered" >    $scope.$on('PageEvent:UpdateChart', <span class="fstat-no" title="function not covered" >function(event, args){</span></span>
+     // console.log('Event@erForm:: PageEvent:UpdateChart')
+<span class="cstat-no" title="statement not covered" >      if (!$scope.ExaminationForm.$invalid &amp;&amp; $state.is('root.edit')){</span>
+          // if editting current chart and form became invalid (id is missing) :
+<span class="cstat-no" title="statement not covered" >          initSaveChart()</span>
+      }
+    });
+<span class="cstat-no" title="statement not covered" >    $scope.$on('PageEvent:GoHome', <span class="fstat-no" title="function not covered" >function(event, args){</span></span>
+     // console.log('Event@erForm:: PageEvent:GoHome')
+&nbsp;
+<span class="cstat-no" title="statement not covered" >     if ($scope.ExaminationForm.$pristine &amp;&amp; !$scope.ExaminationForm.$dirty){</span>
+       // if form is untouched and user decided not to continue filling the form: 
+<span class="cstat-no" title="statement not covered" >       $state.go('root.home');</span>
+      } else <span class="cstat-no" title="statement not covered" >if (!$scope.ExaminationForm.$invalid &amp;&amp; $state.is('root.edit')){</span>
+        // if editting current chart and form became invalid (id is missing) :
+<span class="cstat-no" title="statement not covered" >        initSaveChart()</span>
+      } else <span class="cstat-no" title="statement not covered" >if ($scope.ExaminationForm.$invalid &amp;&amp; $state.is('root.form')){</span>
+        // if creating new chart and user forgot to provide patient id:
+<span class="cstat-no" title="statement not covered" >        initSaveChart()</span>
+      }
+    });
+<span class="cstat-no" title="statement not covered" >    $scope.$on('PageEvent:isAdd', <span class="fstat-no" title="function not covered" >function(){</span></span>
+     // console.log('PageEvent:isAdd');
+<span class="cstat-no" title="statement not covered" >      $timeout(<span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >          setDefault('default').then(<span class="fstat-no" title="function not covered" >function(formScope){</span></span>
+<span class="cstat-no" title="statement not covered" >            formScope.$setPristine();</span>
+<span class="cstat-no" title="statement not covered" >            formScope.$setUntouched();</span>
+          });
+      });
+&nbsp;
+    });
+<span class="cstat-no" title="statement not covered" >    $scope.$on('PageEvent:isEdit', <span class="fstat-no" title="function not covered" >function(){</span></span>
+     // console.log('PageEvent:isEdit');
+<span class="cstat-no" title="statement not covered" >      initEditChart();</span>
+    });
+&nbsp;
+&nbsp;
+  };
+});
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Feb 10 2015 16:01:14 GMT-0500 (EST)</div>
+</div>
+
+<script src="../../../prettify.js"></script>
+
+<script src="https://yui-s.yahooapis.com/3.6.0/build/yui/yui-min.js"></script>
+<script>
+
+    YUI().use('datatable', function (Y) {
+
+        var formatters = {
+          pct: function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              try {
+                  return o.value.toFixed(2) + '%';
+              } catch (ex) { return o.value + '%'; }
+          },
+          html: function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              return o.record.get(o.column.key + '_html');
+          }
+        },
+          defaultFormatter = function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              return o.value;
+          };
+
+        function getColumns(theadNode) {
+            var colNodes = theadNode.all('tr th'),
+                cols = [],
+                col;
+            colNodes.each(function (colNode) {
+                col = {
+                    key: colNode.getAttribute('data-col'),
+                    label: colNode.get('innerHTML') || ' ',
+                    sortable: !colNode.getAttribute('data-nosort'),
+                    className: colNode.getAttribute('class'),
+                    type: colNode.getAttribute('data-type'),
+                    allowHTML: colNode.getAttribute('data-html') === 'true' || colNode.getAttribute('data-fmt') === 'html'
+                };
+                col.formatter = formatters[colNode.getAttribute('data-fmt')] || defaultFormatter;
+                cols.push(col);
+            });
+            return cols;
+        }
+
+        function getRowData(trNode, cols) {
+            var tdNodes = trNode.all('td'),
+                    i,
+                    row = { classes: {} },
+                    node,
+                    name;
+            for (i = 0; i < cols.length; i += 1) {
+                name = cols[i].key;
+                node = tdNodes.item(i);
+                row[name] = node.getAttribute('data-value') || node.get('innerHTML');
+                row[name + '_html'] = node.get('innerHTML');
+                row.classes[name] = node.getAttribute('class');
+                //Y.log('Name: ' + name + '; Value: ' + row[name]);
+                if (cols[i].type === 'number') { row[name] = row[name] * 1; }
+            }
+            //Y.log(row);
+            return row;
+        }
+
+        function getData(tbodyNode, cols) {
+            var data = [];
+            tbodyNode.all('tr').each(function (trNode) {
+                data.push(getRowData(trNode, cols));
+            });
+            return data;
+        }
+
+        function replaceTable(node) {
+            if (!node) { return; }
+            var cols = getColumns(node.one('thead')),
+                data = getData(node.one('tbody'), cols),
+                table,
+                parent = node.get('parentNode');
+
+            table = new Y.DataTable({
+                columns: cols,
+                data: data,
+                sortBy: 'file'
+            });
+            parent.set('innerHTML', '');
+            table.render(parent);
+        }
+
+        Y.on('domready', function () {
+            replaceTable(Y.one('div.coverage-summary table'));
+            if (typeof prettyPrint === 'function') {
+                prettyPrint();
+            }
+        });
+    });
+</script>
+</body>
+</html>
