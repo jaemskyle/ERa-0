@@ -12,12 +12,26 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var pkg = require('./package');
 var karma = require('karma').server;
+var gutil = require('gutil');
 var del = require('del');
 var _ = require('lodash');
 /* jshint camelcase:false*/
 var webdriverStandalone = require('gulp-protractor').webdriver_standalone;
 var webdriverUpdate = require('gulp-protractor').webdriver_update;
 var modRewrite = require('connect-modrewrite');
+var ngClassify = require('gulp-ng-classify');
+var coffee = require('gulp-coffee');
+
+gulp.task('coffee', function() {
+  gulp.src('./app/**/*.coffee')
+    .pipe(coffee({bare: true}).on('error', gutil.log))
+    .pipe(gulp.dest('./build/tmp/js'))
+});
+gulp.task('ngclassify', function () {
+    return gulp.src('./app/**/*.coffee')
+        .pipe(ngClassify())
+        .pipe(gulp.dest('./build/tmp/js'));
+});
 
 //update webdriver if necessary, this task will be used by e2e task
 gulp.task('webdriver:update', webdriverUpdate);

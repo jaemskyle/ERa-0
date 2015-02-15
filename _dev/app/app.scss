@@ -11,19 +11,9 @@
 @import "modules/partial/form/form.scss";
 @import "modules/partial/edit/edit.scss";
 @import "modules/partial/home/home.scss";
+@import "modules/partial/pincode/pincode.scss";
+@import "modules/ErAuth/ErAuth.scss";
 /* Add Component SCSS Above */
-
-/* Personal preference for BS modal.  The SCSS below makes the backdrop white and
-   causes the modal to fade in rather than slide in. */
-//@modal-backdrop-bg: white;
-//.modal {
-//	&.fade {
-//		.transition(opacity .3s);
-//	}
-//	&.fade .modal-dialog {
-//		.translate(0,0);
-//	}
-//}
 
 $printed : rgb(245, 245, 220);
 
@@ -184,6 +174,14 @@ color: white;
 .line-h30{
   line-height: 35px;
   height: 20px;
+}
+
+.pincode-btn{
+  border-radius: 50px;
+border: none;
+color: grey;
+background: white;
+padding: 5px;
 }
 
 

@@ -332,7 +332,7 @@ angular.module('ERChart').directive('erform', function($state, constants, $timeo
       allCharts.unshift(angular.extend($scope.chart, {
         _erid: new Date() + $scope.chart.id,
         date: moment().format('YYYY-MM-DD'),
-        time: moment().format('hh:mm: A')
+        time: $scope.chart.time !== '' ? $scope.chart.time : moment().format('hh:mm A')
       }));
       deferred.resolve(allCharts);
       return deferred.promise;
@@ -502,7 +502,7 @@ angular.module('ERChart').directive('erform', function($state, constants, $timeo
     var printDone = function(){
       angular.forEach($elem.parent().children(), function(value, key){
         if (key >= 2){
-          console.log(value.remove());
+          value.remove();
         }
       });
       $scope.chart.printed = true;
@@ -514,7 +514,7 @@ angular.module('ERChart').directive('erform', function($state, constants, $timeo
 
       var parentElem = angular.element($elem[0].parentNode);
       var formElem = angular.element($elem.parent());
-      while ($elem.parent()[0].children.length <= 6) {
+      while ($elem.parent()[0].children.length <= 2) {
         parentElem.append(formElem.html());
       }
 

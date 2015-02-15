@@ -20,8 +20,8 @@
     },
     "modules": [
       {
-        "name": "Auth",
-        "file": "app/modules/Auth/Auth.js"
+        "name": "ErAuth",
+        "file": "app/modules/ErAuth/ErAuth.js"
       }
     ]
   }

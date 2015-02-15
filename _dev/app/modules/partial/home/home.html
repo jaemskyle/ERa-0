@@ -10,17 +10,17 @@
     <div class="row responsive-sm">
       <div class=" col-offset-25 col-50 col">
         <section class="row">
-          <h4 class="color-white w-100p text-center">Charts saved: {{forms.length || 'record\'s empty'}}</h4>
+          <h4 class="color-white w-100p text-center">Charts saved: {{charts.length || 'record\'s empty'}}</h4>
         </section>
-        <ion-list can-swipe="canSwipeList" show-delete="showListDelete">
-        <ion-item class="item item-icon-right" er-item-isprinted="{{form.printed}}" ng-repeat="form in forms" ng-click="editItem(form, $index)">
-            <h2 >Patient ID : {{form.id}}</h2>
-            <p>Created: {{form.date}} {{form.time}}</p>
+        <ion-list can-swipe="list.canSwipeList" show-delete="list.showListDelete">
+        <ion-item class="item item-icon-right" er-item-isprinted="{{form.printed}}" ng-repeat="chart in charts" ng-click="list.editItem(chart, $index)">
+            <h2 >Patient ID : {{chart.id}}</h2>
+            <p>Created: {{chart.date}} {{chart.time}}</p>
             <p>{{form.physical_exam.air_entry_equal_and_bilateral_note}}</p>
             <i class="icon ion-ios7-arrow-forward"></i>
-            <ion-delete-button class="ion-minus-circled" ng-click="deleteItem(form, $index)">
+            <ion-delete-button class="ion-minus-circled" ng-click="list.deleteItem(chart, $index)">
             </ion-delete-button>
-            <ion-option-button class="button-info button-positive"ng-click="deleteItem(form, $index)">
+            <ion-option-button class="button-info button-positive"ng-click="list.deleteItem(chart, $index)">
               Delete
             </ion-option-button>
           </ion-item>

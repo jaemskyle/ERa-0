@@ -1,5 +1,4 @@
 angular.module('ERChart').controller('FormCtrl',function($scope, cache, erutils, $state, isEditMode, $stateParams){
-    console.log($state)
     if (isEditMode){
         // console.log('should broadcast: isEdit')
       erutils.broadcastPageEvent('isEdit');

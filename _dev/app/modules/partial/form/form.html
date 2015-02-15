@@ -80,6 +80,9 @@
             font-size: 10px;
             font-family: 'serif'
           }
+          .print-textarea--inline {
+            display: inline;
+          }
           .print-header {
             margin: 10px 0 0 0;
             font-size: 10px;
@@ -130,13 +133,16 @@
                   <div class="col">
                     <label class="item item-input">
                       <span class="input-label">Date</span>
-                      <input type="text" name="date" ng-disabled="true" ng-model="chart.date" ng-value="chart.date" />
+                      <input type="text" name="date"
+                      ng-disabled="true" ng-model="chart.date"
+                      ng-value="chart.date" placeholder="YYYY-MM-DD" />
                     </label>
                   </div>
                   <div class="col">
                     <label class="item item-input">
                       <span class="input-label">Time</span>
-                      <input type="text" name="time" ng-disabled="true" ng-model="chart.time" ng-value="chart.time"/>
+                      <input type="text" name="time"
+                      ng-model="chart.time" ng-value="chart.time" placeholder="HH:MM AM/PM"/>
                     </label>
                   </div>
                 </div>
@@ -212,8 +218,8 @@
                   </ul>
                   
                   <div class="ng-hide" ng-class="{'hidden-on-print': (chart.notes === '' || !chart.notes)}">
-                    <h4 class="print-header">Notes</h4>
-                    <p class="print-textarea">{{chart.notes}}</p>
+                    <h4 class="print-header print-header--inline">Notes:</h4>
+                    <span class="print-textarea">{{chart.notes}}</span>
                   </div>
                   <article class="card chart-card hidden-on-print">
                     <header class="item item-divider">Notes</header>
@@ -224,13 +230,16 @@
           </div>
 
           <div class="ng-hide">
-            <h4 class="print-header">Diagnosis</h4>
-            <p class="print-textarea">{{chart.diagnosis}}</p>
-            <h4 class="print-header">Discharge Instruction</h4>
-            <p class="print-textarea">{{chart.discharge_instruction}}</p>
+            <b class="print-header print-header--inline">Diagnosis:</b>
+            <span class="print-textarea">{{chart.diagnosis}}</span>
           </div>
+          <div class="ng-hide">
+            <b class="print-header print-header--inline">Discharge Instruction:</b>
+            <span class="print-textarea">{{chart.discharge_instruction}}</span>
+          </div>
+
           <article class="card hidden-on-print">
-            <header class="item item-divider  color-white bg-blue">Diagnosis</header>
+            <header class="item item-divider color-white bg-blue">Diagnosis</header>
             <textarea class="hidden-on-print resize p-10" rows="8" name="diagnosis" ng-model="chart.diagnosis" placeholder="start typing...">{{chart.diagnosis}}</textarea>
           </article>
           <article class="card m-0b hidden-on-print">

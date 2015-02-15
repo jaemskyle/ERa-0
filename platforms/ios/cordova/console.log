@@ -1,0 +1,16 @@
+2015-02-12 19:32:15.920 HelloCordova[21011:1504755] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/jaekyll/Library/Developer/CoreSimulator/Devices/1C951484-DC85-4936-8507-7B4B4256CF17/data/Containers/Data/Application/5D5000BD-B9EC-4B69-A339-719B491A496E/Library/Cookies/Cookies.binarycookies
+2015-02-12 19:32:16.008 HelloCordova[21011:1504755] Apache Cordova native platform version 3.6.3 is starting.
+2015-02-12 19:32:16.008 HelloCordova[21011:1504755] Multi-tasking -> Device: YES, App: YES
+2015-02-12 19:32:16.032 HelloCordova[21011:1504755] Unlimited access to network resources
+2015-02-12 19:32:16.039 HelloCordova[21011:1504755] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+
+2015-02-12 19:32:16.466 HelloCordova[21011:1504755] [CDVTimer][keyboard] 0.289023ms
+2015-02-12 19:32:16.466 HelloCordova[21011:1504755] [CDVTimer][TotalPluginStartup] 0.431001ms
+2015-02-12 19:32:17.304 HelloCordova[21011:1504755] Resetting plugins due to page load.
+2015-02-12 19:32:17.425 HelloCordova[21011:1504755] Finished load of: file:///Users/jaekyll/Library/Developer/CoreSimulator/Devices/1C951484-DC85-4936-8507-7B4B4256CF17/data/Containers/Bundle/Application/B182CBD6-E0D0-4231-B180-9EF656BB8238/HelloCordova.app/www/index.html
+2015-02-12 19:32:17.494 HelloCordova[21011:1504755] Received Event: deviceready

@@ -1,88 +1,51 @@
-angular.module('ERChart').controller('LoginCtrl',function($scope, $timeout, $firebase, $firebaseAuth, $state) {
-    var erfire = new Firebase('https://era.firebaseio.com/users');
-    var erfiresync = $firebase(erfire).$asObject();
-    $scope.authObj = $firebaseAuth(erfire);
-    var authData = $scope.authObj.$getAuth();
-    var users = [];
+angular.module('ERChart').controller('LoginCtrl',function($scope, $timeout, $firebase, $firebaseAuth, $state, eruser, constants) {
+  var erFBUsersUrlRef = new Firebase(constants.FB_USERS_URL);
+  var erFBUsersSync = $firebase(erFBUsersUrlRef).$asObject();
+  var erAuthObj = $firebaseAuth(erFBUsersUrlRef);
+  var authData = erAuthObj.$getAuth();
 
-    $scope.signup = {};
-    $scope.cred = {};
-    $scope.user = {
-        eruid : null
-    };
+  $scope.cred = {};
 
-    if (authData) {
-      console.log("Already in as:", authData.uid);
-      console.log(authData)
-      $scope.user.eruid = authData.uid;
-      console.log($scope.user);
-      $timeout( function(){
-          $state.go('default.home')
-          });
-    } else {
-      console.log("Logged out");
-    }
+  if (authData) {
+    console.log("Already in as:", authData.uid);
+    $state.go('pincode');
+  } else {
+    console.log("Logged out");
+  }
 
-    $scope.login = function(){
-      $state.go('root.home');
-        // $scope.authObj.$authWithPassword({
-        //   email: $scope.cred.email,
-        //   password: $scope.cred.pass
-        // }).then(function(authData) {
-        //   console.log("Logged in as:", authData.uid);
-        //   $scope.cred = {}
-        //   $timeout( function(){
-        //       $state.go('root.home')
-        //     });
-          
-        // }).catch(function(error) {
-        //   console.error("Authentication failed:", error);
-        // });
-    };
-    $scope.signup = function(){
-        $scope.authObj.$createUser({
-          email: $scope.signup.email,
-          password: $scope.signup.pass,
-        }).then(function(userData) {
-          console.log("User " + userData.uid + " created successfully!");
-          var newUid = userData.uid;
-          var newUser = {
-                  _eruid: userData.uid,
-                  hospital: $scope.signup.hospital,
-                  name: $scope.signup.nom
-              };
-              erfiresync.$add(newUser).then(function(ref) {
-                  var id = ref.key();
-                  console.log("added record with id " + id);
-                  erfiresync.$indexFor(id); // returns location in the array
-                  console.log(erfiresync);
-                });
+  this.login = login;
+  this.logout = logout;
 
-          return $scope.authObj.$authWithPassword({
-            email: $scope.signup.email,
-            password: $scope.signup.pass
-          });
-        }).then(function(authData) {
-          console.log("Logged in as:", authData.uid);
-          $scope.user.eruid = authData.uid;
-          console.log($scope.user);
-          console.log(authData);
-
+  function login(){
+    $state.go('pincode');
+    return false;
+    erAuthObj.$authWithPassword($scope.cred).then(function(loginSuccess) {
+      var userObj = {"_fbuid": loginSuccess.uid,
+                     cred: {
+                       "name": null,
+                       "hospital": null,
+                       "province": null
+                     }};
+      console.log("Logged in as:", loginSuccess.uid);
+      eruser.localSetAuthdUser(loginSuccess.uid, userObj)
+        .then(function(localUserCreated){})
+        .finally(function(){
+          $scope.cred = {}
           $timeout( function(){
-                $state.go('default.home');
-            });
-
-          $scope.signup = {};
-        }).catch(function(error) {
-          console.error("Error: ", error);
+            $state.go('pincode');
+          });
         });
-    };
 
-  $scope.logout = function(){
-      console.log('should log out');
-      $scope.authObj.$unauth();
-      $timeout( function(){
-          $state.go('root.login')
-        });
-    };
+      
+    }).catch(function(error) {
+      console.error("Authentication failed:", error);
+    });
+  };
+  function logout(){
+    console.log('should log out');
+    erAuthObj.$unauth();
+    $timeout( function(){
+      $state.go('root.login')
+    });
+  };
 });

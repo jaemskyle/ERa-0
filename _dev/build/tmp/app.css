@@ -7004,9 +7004,9 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
+/* Component SCSS */
 /* Add Component SCSS Above */
-/* Personal preference for BS modal.  The SCSS below makes the backdrop white and
-   causes the modal to fade in rather than slide in. */
+/* Add Component SCSS Above */
 .bg-login {
   background: #a9ddf3; }
 
@@ -7132,3 +7132,10 @@ a.button {
 .line-h30 {
   line-height: 35px;
   height: 20px; }
+
+.pincode-btn {
+  border-radius: 50px;
+  border: none;
+  color: grey;
+  background: white;
+  padding: 5px; }

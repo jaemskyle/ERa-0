@@ -1,11 +1,12 @@
-<ion-view view-title="Login" hide-back-button="true">
+<ion-view view-title="Login" hide-back-button="true"
+          ng-controller="LoginCtrl as auth">
   <ion-content class="bg-login">
     <div class="row responsive-sm">
       <form class=" col-offset-33 col-33 col p-15" novalidate name="loginForm">
         <img src="assets/images/logo.png" class="w-100p">
         <input type="email" placeholder="Email" class="input-m" name="cred_email" ng-model="cred.email">
-        <input type="password" placeholder="Password" class="m-t10 input-m" name="cred_pass" ng-model="cred.pass">
-        <a class="button button-block button-calm button-m" ng-click="login()">Log in</a>
+        <input type="password" placeholder="Password" class="m-t10 input-m" name="cred_pass" ng-model="cred.password">
+        <a class="button button-block button-calm button-m" ng-click="auth.login()">Log in</a>
       </form>
     </div>
     <div class="row responsive-sm">

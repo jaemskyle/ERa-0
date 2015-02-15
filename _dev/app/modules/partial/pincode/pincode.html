@@ -1,0 +1,25 @@
+<ion-view view-title="Enter Your Pin" hide-back-button="true"
+          ng-controller="PincodeCtrl as pin">
+  <ion-content class="bg-login">
+    <div class="row responsive-sm">
+      <div class=" col-offset-33 col-33 col">
+        <section class="row">
+            <div class="col"><button class="button button-default pincode-btn" ng-click="pin.unlockPin(1)">1</button></div>
+            <div class="col"><button class="button button-default pincode-btn" ng-click="pin.unlockPin(2)">2</button></div>
+            <div class="col"><button class="button button-default pincode-btn" ng-click="pin.unlockPin(3)">3</button></div>
+        </section>
+        <section class="row">
+            <div class="col"><button class="button button-default pincode-btn" ng-click="pin.unlockPin(4)">4</button></div>
+            <div class="col"><button class="button button-default pincode-btn" ng-click="pin.unlockPin(5)">5</button></div>
+            <div class="col"><button class="button button-default pincode-btn" ng-click="pin.unlockPin(6)">6</button></div>
+        </section>
+        <section class="row">
+            <div class="col"><button class="button button-default pincode-btn" ng-click="pin.unlockPin(7)">7</button></div>
+            <div class="col"><button class="button button-default pincode-btn" ng-click="pin.unlockPin(8)">8</button></div>
+            <div class="col"><button class="button button-default pincode-btn" ng-click="pin.unlockPin(9)">9</button></div>
+        </section>
+        
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
