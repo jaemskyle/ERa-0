@@ -9,9 +9,18 @@ angular.module('ERChart').factory('eruser',function($localForage,$window,$q,$fir
     charts: []
   });
   var eruser = {
-    localSetAuthdUser: function(key, data, req_type){
-      data = new userRecord(data);
-      return $localForage.setItem(key, data);
+    localSetAuthdUser: function(key, data, isReqUpdate){
+      if (isReqUpdate){
+        return eruser.localGetAuthdUser().then(
+          function(user){
+            user = Immutable.Map(user);
+            data = user.setIn([ "charts" ], data.charts);
+            return $localForage.setItem(key, data);
+          });
+      } else {
+        data = new userRecord(data);
+        return $localForage.setItem(key, data);
+      }
     },
     localDeleteAuthdUser: function(key){
       return $localForage.removeItem(key);
@@ -22,9 +31,9 @@ angular.module('ERChart').factory('eruser',function($localForage,$window,$q,$fir
       deferred.resolve($window.localStorage[erfire_session_key]);
       return deferred.promise;
     },
-    localGetAuthdUser: function(){
+    localGetAuthdUser: function(key){
       return eruser.localGetFBAuthdUser().then(function(currentUser){
-        return $localForage.getItem( angular.fromJson(currentUser).uid );
+        return $localForage.getItem( key || angular.fromJson(currentUser).uid );
       });
     },
     isUserAuthd: function(){

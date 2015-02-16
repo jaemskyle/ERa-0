@@ -1,4 +1,4 @@
-angular.module('ERChart').controller('PincodeCtrl',function($scope,$state,$timeout,eruser){
+angular.module('ERChart').controller('PincodeCtrl',function($scope,$state,$timeout,eruser,erutils){
   // eruser.getAuthdUser('simplelogin:15').then(function(r){
   //   console.log(Immutable.fromJS(r));
   // });
@@ -10,7 +10,10 @@ angular.module('ERChart').controller('PincodeCtrl',function($scope,$state,$timeo
     } else if (pin.length === 2){
       console.log('yo');
       
-      $state.go('root.home');
+      $timeout(function(){
+        erutils.broadcastPageEvent("InitCharts");
+      $state.transitionTo('root.home', {}, {reload: true});
+      })
         return pin = [];
     }
   };

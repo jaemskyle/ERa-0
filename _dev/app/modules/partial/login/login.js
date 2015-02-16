@@ -17,8 +17,8 @@ angular.module('ERChart').controller('LoginCtrl',function($scope, $timeout, $fir
   this.logout = logout;
 
   function login(){
-    $state.go('pincode');
-    return false;
+    // $state.go('pincode');
+    // return false;
     erAuthObj.$authWithPassword($scope.cred).then(function(loginSuccess) {
       var userObj = {"_fbuid": loginSuccess.uid,
                      cred: {
@@ -27,15 +27,17 @@ angular.module('ERChart').controller('LoginCtrl',function($scope, $timeout, $fir
                        "province": null
                      }};
       console.log("Logged in as:", loginSuccess.uid);
-      eruser.localSetAuthdUser(loginSuccess.uid, userObj)
-        .then(function(localUserCreated){})
-        .finally(function(){
-          $scope.cred = {}
-          $timeout( function(){
-            $state.go('pincode');
-          });
-        });
+      // eruser.localSetAuthdUser(loginSuccess.uid, userObj)
+      //   .then(function(localUserCreated){})
+      //   .finally(function(){
+      //     $scope.cred = {}
+      //     $timeout( function(){
+      //       $state.go('pincode');
+      //     });
+      //   });
 
+        $scope.cred = {}
+      $state.transitionTo('pincode', {}, {reload: true});
       
     }).catch(function(error) {
       console.error("Authentication failed:", error);

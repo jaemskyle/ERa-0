@@ -81,8 +81,8 @@ angular.module('ERChart').config(function($stateProvider, $urlRouterProvider, $l
           //   return Auth.$waitForAuth();
           // }
           'isUserAuthd': function(eruser){
-            // return angular.isObject(eruser.isUserAuthd());
-            return true;
+            return angular.isObject(eruser.isUserAuthd());
+            // return true;
           }
         },
         templateUrl: 'modules/partial/home/home.html',
@@ -129,7 +129,7 @@ angular.module('ERChart').run(function($rootScope,$state,$stateParams,$log,$fire
                  });
   $rootScope.$on('$stateChangeError', 
                  function(event, toState, toParams, fromState, fromParams){
-                   // $log.error('event '+ angular.toJson(event) );
+                   $log.error('event '+ angular.toJson(event) );
                    $state.go('login');
                  });
 
@@ -143,6 +143,18 @@ angular.module('ERChart').run(function($rootScope,$state,$stateParams,$log,$fire
     } else {
       this.$apply(fn);
     }
+  };
+
+  ionic.Platform.ready(function(){
+    document.addEventListener("resume", handleOnResume, false);
+    document.addEventListener("pause", handleOnPause, false);
+  });
+
+  function handleOnResume (){
+    $state.is("pincode");
+  };
+  function handleOnPause (){
+    $state.is("pincode");
   };
 
 });
