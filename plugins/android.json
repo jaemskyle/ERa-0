@@ -9,11 +9,11 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"Toast\"><param name=\"android-package\" value=\"nl.xservices.plugins.Toast\" /></feature>",
+                            "xml": "<feature name=\"Printer\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.printer.Printer\" /></feature>",
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Keyboard\"><param name=\"android-package\" value=\"com.ionic.keyboard.IonicKeyboard\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "xml": "<feature name=\"Toast\"><param name=\"android-package\" value=\"nl.xservices.plugins.Toast\" /></feature>",
                             "count": 1
                         },
                         {
@@ -21,7 +21,7 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Printer\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.printer.Printer\" /></feature>",
+                            "xml": "<feature name=\"Keyboard\"><param name=\"android-package\" value=\"com.ionic.keyboard.IonicKeyboard\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -36,19 +36,19 @@
         }
     },
     "installed_plugins": {
+        "de.appplant.cordova.plugin.printer": {
+            "PACKAGE_NAME": "com.beta.era"
+        },
         "nl.x-services.plugins.toast": {
+            "PACKAGE_NAME": "com.beta.era"
+        },
+        "org.apache.cordova.device": {
             "PACKAGE_NAME": "com.beta.era"
         },
         "com.ionic.keyboard": {
             "PACKAGE_NAME": "com.beta.era"
         },
         "org.apache.cordova.console": {
-            "PACKAGE_NAME": "com.beta.era"
-        },
-        "org.apache.cordova.device": {
-            "PACKAGE_NAME": "com.beta.era"
-        },
-        "de.appplant.cordova.plugin.printer": {
             "PACKAGE_NAME": "com.beta.era"
         }
     },

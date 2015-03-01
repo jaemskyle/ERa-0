@@ -4,7 +4,9 @@
     <div class="row responsive-sm">
       <form class=" col-offset-33 col-33 col p-15" novalidate>
         <img src="../assets/images/logo.png" class="w-100p">
-        <input type="text" placeholder="Name" class="p-15" name="name" ng-model="signup.name">
+        <input type="hidden" placeholder="Name" class="p-15" name="name" ng-model="signup.name">
+        <input type="text" placeholder="First Name" class="p-15" name="first_name" ng-model="signup.firstName">
+        <input type="text" placeholder="Last Name" class="p-15" name="last_name" ng-model="signup.lastName">
         <input type="text" placeholder="Hospital" class="m-t10 p-15" name="hospital" ng-model="signup.hospital">
         <input type="email" placeholder="Email" class="m-t10 p-15" name="email" ng-model="signup.email">
         <input type="password" placeholder="Password" class="m-t10 p-15" name="pass" ng-model="signup.password">

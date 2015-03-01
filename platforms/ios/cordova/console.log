@@ -1,16 +1,26 @@
-2015-02-12 19:32:15.920 HelloCordova[21011:1504755] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/jaekyll/Library/Developer/CoreSimulator/Devices/1C951484-DC85-4936-8507-7B4B4256CF17/data/Containers/Data/Application/5D5000BD-B9EC-4B69-A339-719B491A496E/Library/Cookies/Cookies.binarycookies
-2015-02-12 19:32:16.008 HelloCordova[21011:1504755] Apache Cordova native platform version 3.6.3 is starting.
-2015-02-12 19:32:16.008 HelloCordova[21011:1504755] Multi-tasking -> Device: YES, App: YES
-2015-02-12 19:32:16.032 HelloCordova[21011:1504755] Unlimited access to network resources
-2015-02-12 19:32:16.039 HelloCordova[21011:1504755] 
+2015-02-28 16:53:32.843 ER Beta[19323:512844] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/jaekyll/Library/Developer/CoreSimulator/Devices/1C951484-DC85-4936-8507-7B4B4256CF17/data/Containers/Data/Application/137AD28D-086B-4EEA-81CF-91E3200CE23C/Library/Cookies/Cookies.binarycookies
+2015-02-28 16:53:32.933 ER Beta[19323:512844] Apache Cordova native platform version 3.6.3 is starting.
+2015-02-28 16:53:32.934 ER Beta[19323:512844] Multi-tasking -> Device: YES, App: YES
+2015-02-28 16:53:32.952 ER Beta[19323:512844] Unlimited access to network resources
+2015-02-28 16:53:32.957 ER Beta[19323:512844] 
 
 Started backup to iCloud! Please be careful.
 Your application might be rejected by Apple if you store too much data.
 For more information please read "iOS Data Storage Guidelines" at:
 https://developer.apple.com/icloud/documentation/data-storage/
 
-2015-02-12 19:32:16.466 HelloCordova[21011:1504755] [CDVTimer][keyboard] 0.289023ms
-2015-02-12 19:32:16.466 HelloCordova[21011:1504755] [CDVTimer][TotalPluginStartup] 0.431001ms
-2015-02-12 19:32:17.304 HelloCordova[21011:1504755] Resetting plugins due to page load.
-2015-02-12 19:32:17.425 HelloCordova[21011:1504755] Finished load of: file:///Users/jaekyll/Library/Developer/CoreSimulator/Devices/1C951484-DC85-4936-8507-7B4B4256CF17/data/Containers/Bundle/Application/B182CBD6-E0D0-4231-B180-9EF656BB8238/HelloCordova.app/www/index.html
-2015-02-12 19:32:17.494 HelloCordova[21011:1504755] Received Event: deviceready
+2015-02-28 16:53:33.374 ER Beta[19323:512844] CDVPlugin class IonicKeyboard (pluginName: keyboard) does not exist.
+2015-02-28 16:53:33.374 ER Beta[19323:512844] [CDVTimer][keyboard] 0.142992ms
+2015-02-28 16:53:33.374 ER Beta[19323:512844] [CDVTimer][TotalPluginStartup] 0.319958ms
+2015-02-28 16:53:33.568 ER Beta[19323:512844] Resetting plugins due to page load.
+2015-02-28 16:53:33.731 ER Beta[19323:512844] Finished load of: file:///Users/jaekyll/Library/Developer/CoreSimulator/Devices/1C951484-DC85-4936-8507-7B4B4256CF17/data/Containers/Bundle/Application/75B609B5-5C53-4122-BBF9-D5A465EF3860/ER%20Beta.app/www/index.html
+2015-02-28 16:53:33.783 ER Beta[19323:512844] CDVPlugin class CDVDevice (pluginName: Device) does not exist.
+2015-02-28 16:53:33.783 ER Beta[19323:512844] ERROR: Plugin 'Device' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2015-02-28 16:53:33.784 ER Beta[19323:512844] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "Device1463242042",
+  "Device",
+  "getDeviceInfo",
+  [
+
+  ]
+]

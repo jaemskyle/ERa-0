@@ -7046,6 +7046,9 @@ a.button {
 .color-white {
   color: white; }
 
+.white-important {
+  color: white !important; }
+
 .no-decoration {
   text-decoration: none; }
 
@@ -7125,7 +7128,7 @@ a.button {
 
 .era-bar label {
   font-size: 12px;
-  padding: 0px;
+  padding: 0px !important;
   line-height: 30px;
   min-height: 30px; }
 
@@ -7139,3 +7142,6 @@ a.button {
   color: grey;
   background: white;
   padding: 5px; }
+
+.er_textarea {
+  min-height: 50px; }

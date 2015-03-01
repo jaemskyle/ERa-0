@@ -13,6 +13,7 @@
 @import "modules/partial/home/home.scss";
 @import "modules/partial/pincode/pincode.scss";
 @import "modules/ErAuth/ErAuth.scss";
+@import "modules/directive/erTextarea/erTextarea.scss";
 /* Add Component SCSS Above */
 
 $printed : rgb(245, 245, 220);
@@ -67,6 +68,10 @@ $printed : rgb(245, 245, 220);
 
 .color-white{
   color: white;
+}
+
+.white-important {
+  color: white !important;
 }
 
 .no-decoration{
@@ -166,7 +171,7 @@ color: white;
 
 .era-bar label{
   font-size: 12px;
-  padding: 0px; 
+  padding: 0px !important;
   line-height: 30px;
   min-height: 30px;
 }
@@ -182,6 +187,10 @@ border: none;
 color: grey;
 background: white;
 padding: 5px;
+}
+
+.er_textarea {
+  min-height: 50px;
 }
 
 

@@ -14,11 +14,13 @@ var paths = {
   pub_templates: 'platforms/android/assets/www/templates/',
   dev_www: ['./www/**/*'],
   pub_www: 'platforms/android/assets/www/',
+  pub_ios_www: 'platforms/ios/www/',
   dev_dist: ['./_dev/build/dist/**/*'],
   android_www: {
         scripts: 'platforms/android/assets/www/scripts/',
         styles: 'platforms/android/assets/www/styles/'
-    }
+  },
+  ios_www: {}
 };
 
 gulp.task('default', ['sass']);
@@ -66,6 +68,7 @@ gulp.task('git-check', function(done) {
 
 gulp.task('sync:dist', ['clean'], function(){
   gulp.src(paths.dev_dist)
+    .pipe(gulp.dest(paths.pub_ios_www))
     .pipe(gulp.dest(paths.pub_www));
 });
 

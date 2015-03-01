@@ -6,14 +6,14 @@
   <ion-nav-buttons side="right">
     <button class="button button-clear" ng-click="$state.go('root.form')">New Form</button>
   </ion-nav-buttons>
-  <ion-content class="bg-login">
+  <ion-content class="bg-login" overflow-scroll="true">
     <div class="row responsive-sm">
       <div class=" col-offset-25 col-50 col">
         <section class="row">
           <h4 class="color-white w-100p text-center">Charts saved: {{charts.length || 'record\'s empty'}}</h4>
         </section>
         <ion-list can-swipe="list.canSwipeList" show-delete="list.showListDelete">
-        <ion-item class="item item-icon-right" er-item-isprinted="{{form.printed}}" ng-repeat="chart in charts" ng-click="list.editItem(chart, $index)">
+        <ion-item class="item item-icon-right" er-item-isprinted="{{chart.printed}}" ng-repeat="chart in charts" ng-click="list.editItem(chart, $index)">
             <h2 >Patient ID : {{chart.id}}</h2>
             <p>Created: {{chart.date}} {{chart.time}}</p>
             <p>{{form.physical_exam.air_entry_equal_and_bilateral_note}}</p>

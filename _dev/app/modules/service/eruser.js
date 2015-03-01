@@ -3,6 +3,8 @@ angular.module('ERChart').factory('eruser',function($localForage,$window,$q,$fir
     _fbuid: null,
     cred: {
       name: null,
+      first_name: null,
+      last_name: null,
       hospital: null,
       province: null
     },
@@ -22,6 +24,15 @@ angular.module('ERChart').factory('eruser',function($localForage,$window,$q,$fir
         return $localForage.setItem(key, data);
       }
     },
+    localSetAuthdUserCred: function(key, credDataObj){
+      return eruser.localGetAuthdUser().then(
+        function(user){
+          user = Immutable.Map(user);
+          credDataObj = user.setIn(["cred"], credDataObj);
+          return $localForage.setItem(key, credDataObj);
+        }
+      );
+    },
     localDeleteAuthdUser: function(key){
       return $localForage.removeItem(key);
     },
@@ -40,9 +51,9 @@ angular.module('ERChart').factory('eruser',function($localForage,$window,$q,$fir
       var deferred = $q.defer();
       eruser.localGetFBAuthdUser().then(function(login){
         if (!login || !angular.isDefined(login)){
-          deferred.resolve(login);
+          deferred.reject(login);
         } else {
-          deferred.reject(false);
+          deferred.resolve(login);
         }
       })
       return deferred.promise;

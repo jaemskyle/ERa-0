@@ -5,7 +5,7 @@
     </button>
   </ion-nav-buttons>
   <ion-nav-buttons side="right">
-    <button class="button button-icon color-white" ng-click="print()">
+    <button class="button button-icon white-important" ng-click="print()">
       Print
     </button>
     <button class="button button-calm" ng-click="save()">
@@ -189,10 +189,10 @@
                     <li class="item item-divider" ng-repeat-start="(title, module_contents) in physical_exam_modules track by $index">
                       <span class="ng-hide print-header" ng-class="{'hidden-on-print': !chart[module_contents.cat_name]['status']}">{{title}}:&nbsp;</span>
                        <section class="row hidden-on-print">
-                         <div class="col-25 line-h30">
+                         <div class="col-50 line-h30">
                           {{title}}
                          </div>
-                         <div class="col-75 button-bar era-bar er-radio" ng-model="chart[module_contents.cat_name]['status']" bs-radio-group>
+                         <div class="col-50 button-bar era-bar er-radio" ng-model="chart[module_contents.cat_name]['status']" bs-radio-group>
                             <label class="button" ng-click="toggleNote(chart[module_contents.cat_name]['status'], module_contents.cat_name)" ng-repeat="state in options">
                                 <input name="{{module_contents.cat_name}}_status" type="radio" class="button" value="{{state.value}}">{{state.label}}
                             </label>
@@ -213,7 +213,7 @@
                     </li>
                     <li ng-repeat-end ng-show="chart[module_contents.cat_name]['status'] === 1">
                     <span class="ng-hide print-size">{{chart[module_contents.cat_name][module_contents.note.model]}}</span>
-                      <textarea class="hidden-on-print" name="{{module_contents.note.name}}" ng-model="chart[module_contents.cat_name][module_contents.note.model]" cols="40" placeholder="Start typing.."></textarea>
+                      <textarea class="er_textarea hidden-on-print" name="{{module_contents.note.name}}" ng-model="chart[module_contents.cat_name][module_contents.note.model]" cols="40" placeholder="Start typing.."></textarea>
                     </li>
                   </ul>
                   
@@ -223,7 +223,7 @@
                   </div>
                   <article class="card chart-card hidden-on-print">
                     <header class="item item-divider">Notes</header>
-                    <textarea rows="8" name="notes" ng-model="chart.notes" placeholder="start typing...">{{chart.notes}}</textarea>
+                    <textarea class="er_textarea" rows="8" name="notes" ng-model="chart.notes" placeholder="start typing...">{{chart.notes}}</textarea>
                   </article>
               </section>
             </div>
@@ -240,13 +240,23 @@
 
           <article class="card hidden-on-print">
             <header class="item item-divider color-white bg-blue">Diagnosis</header>
-            <textarea class="hidden-on-print resize p-10" rows="8" name="diagnosis" ng-model="chart.diagnosis" placeholder="start typing...">{{chart.diagnosis}}</textarea>
+            <textarea class="er_textarea hidden-on-print resize p-10"
+                      rows="3"
+                      name="diagnosis"
+                      ng-model="chart.diagnosis"
+                      placeholder="start typing..."
+                      ng-bind="chart.diagnosis"></textarea>
           </article>
           <article class="card m-0b hidden-on-print">
             <header class="item item-divider color-white bg-blue">Discharge Instruction</header>
-            <textarea class="hidden-on-print resize p-10" rows="8" name="discharge_instruction" ng-model="chart.discharge_instruction" placeholder="start typing...">{{chart.discharge_instruction}}</textarea>
+            <!-- <er-textarea chart-model="chart.discharge_instruction"></er-textarea> -->
+            <textarea class="er_textarea hidden-on-print resize p-10"
+                      rows="8" name="discharge_instruction"
+                      ng-model="chart.discharge_instruction"
+                      placeholder="start typing..."
+                      ng-bind="chart.discharge_instruction"></textarea>
           </article>
-          <p class="ng-hide print-align-right"><span class="print-size">Dr. A. Behboudi</span></p>
+          <p class="ng-hide print-align-right"><span class="print-size">Dr. {{chart.signature}}</span></p>
         </form>
     </div>
 

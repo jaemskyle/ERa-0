@@ -1,4 +1,7 @@
-angular.module('ERChart').controller('PincodeCtrl',function($scope,$state,$timeout,eruser,erutils){
+angular.module('ERChart').controller('PincodeCtrl',function($scope, $state, $timeout, eruser, erutils, $firebase, $firebaseAuth, constants){
+  var erfire,authObj,er_user;
+  erfire = new Firebase(constants.FB_URL);
+  authObj = $firebaseAuth(erfire);
   // eruser.getAuthdUser('simplelogin:15').then(function(r){
   //   console.log(Immutable.fromJS(r));
   // });
@@ -17,6 +20,17 @@ angular.module('ERChart').controller('PincodeCtrl',function($scope,$state,$timeo
         return pin = [];
     }
   };
-
-
+  
+  this.logout = function(){
+    eruser.localGetAuthdUser()
+      .then(function(user){
+        //eruser.localDeleteAuthdUser( angular.fromJson(user)._fbuid);
+      })
+      .finally(function(){
+        authObj.$unauth();
+        $timeout( function(){
+          $state.go('login')
+        });
+      });
+  };
 });

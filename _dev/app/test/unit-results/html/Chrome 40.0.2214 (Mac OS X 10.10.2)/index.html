@@ -94,14 +94,14 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
 </head>
 
 <body id="HTMLReporter" class="html-reporter showDetails">
-<h1>Tested in Chrome 40.0.2214 (Mac OS X 10.10.2) on Tue Feb 10 2015</h1>
+<h1>Tested in Chrome 40.0.2214 (Mac OS X 10.10.2) on Sat Feb 28 2015</h1>
 
 <div class="alert">
 
 
-<!-- <span class="failingAlert bar">Failed 1 specs</span> -->
+<!-- <span class="failingAlert bar">Failed 2 specs</span> -->
 <span class="failingAlert bar"><span class="fold-buttons"><a href="#" onclick="fold();">Fold</a> | 
-  <a href="#" onclick="unfold();">Unfold</a></span>13 specs, 1 failed, 0 pending</span>
+  <a href="#" onclick="unfold();">Unfold</a></span>18 specs, 2 failed, 0 pending</span>
 <span class="resultsMenu bar">
 <a class="summaryMenuItem" onclick="showSummary();" href="#">Spec List<a>|<a 
    class="detailsMenuItem" onclick="showFailures();" href="#">Failures</a>
@@ -116,6 +116,24 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
   
   
   
+  
+    <div class="suite failed">
+      <span class="description">globalAuth</span>
+    
+      <div class="specSummary failed">
+      <span class="description">should ...</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">erTextarea</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should ...</span>
+      </div>
+    
+    </div>
   
     <div class="suite passed">
       <span class="description">erItemIsprinted</span>
@@ -153,19 +171,23 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     
     </div>
   
-    <div class="suite failed">
+    <div class="suite passed">
       <span class="description">FormCtrl</span>
     
-      <div class="specSummary failed">
+      <div class="specSummary passed">
       <span class="description">should go to resolve isEditMode</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should broadcast isEdit when editting</span>
       </div>
     
     </div>
   
-    <div class="suite passed">
+    <div class="suite failed">
       <span class="description">HomeCtrl</span>
     
-      <div class="specSummary passed">
+      <div class="specSummary failed">
       <span class="description">should ...</span>
       </div>
     
@@ -182,6 +204,15 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
   
     <div class="suite passed">
       <span class="description">MenuCtrl</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should ...</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">PincodeCtrl</span>
     
       <div class="specSummary passed">
       <span class="description">should ...</span>
@@ -226,6 +257,15 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     </div>
   
     <div class="suite passed">
+      <span class="description">eruser</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should ...</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
       <span class="description">erutils</span>
     
       <div class="specSummary passed">
@@ -241,24 +281,52 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
   
   
   <div class="specDetail failed">
-    <span class="description">FormCtrl should go to resolve isEditMode</span>
+    <span class="description">globalAuth should ...</span>
     <div class="stackTrace">
-      <div class="resultMessage">Error: Unexpected request: GET modules/partial/home/home.html
-No more request expected
-    at $httpBackend (http://localhost:9876/base/app/vendor/angular-mocks/angular-mocks.js?9b2f896e2280af56bbea0f98157c7fcc5f9f673a:9:37790)
-    at sendReq (http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:623643)
-    at serverRequest (http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:614336)
-    at processQueue (http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:763094)
-    at http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:764200
-    at Scope.$eval (http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:800347)
-    at Scope.$digest (http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:793143)
-    at null.&lt;anonymous&gt; (http://localhost:9876/base/app/modules/partial/form/form-spec.js?cf1f7ee788a48056ad40dc5a52b64db295683c76:9:1088)
+      <div class="resultMessage">Error: [$injector:modulerr] Failed to instantiate module ErAuth due to:
+Error: [$injector:unpr] Unknown provider: $stateProvider
+http://errors.angularjs.org/1.3.6/$injector/unpr?p0=%24stateProvider
+    at http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:339761
+    at http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:455320
+    at getService (http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:463798)
+    at Object.invoke (http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:465396)
+    at runInvokeQueue (http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:460680)
+    at http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:461183
+    at forEach (http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:344962)
+    at loadModules (http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:459944)
+    at Object.createInjector [as injector] (http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:455833)
+    at workFn (http://localhost:9876/base/app/vendor/angular-mocks/angular-mocks.js?9b2f896e2280af56bbea0f98157c7fcc5f9f673a:9:65096)
+http://errors.angularjs.org/1.3.6/$injector/modulerr?p0=ErAuth&amp;p1=Error%3A%20%5B%24injector%3Aunpr%5D%20Unknown%20provider%3A%20%24stateProvider%0Ahttp%3A%2F%2Ferrors.angularjs.org%2F1.3.6%2F%24injector%2Funpr%3Fp0%3D%2524stateProvider%0A%20%20%20%20at%20http%3A%2F%2Flocalhost%3A9876%2Fbase%2Fapp%2Fvendor%2Fionic%2Fjs%2Fionic.bundle.js%3Fc831b8acc7a0236bfa0e165643f63a87fc5028c2%3A9%3A339761%0A%20%20%20%20at%20http%3A%2F%2Flocalhost%3A9876%2Fbase%2Fapp%2Fvendor%2Fionic%2Fjs%2Fionic.bundle.js%3Fc831b8acc7a0236bfa0e165643f63a87fc5028c2%3A9%3A455320%0A%20%20%20%20at%20getService%20(http%3A%2F%2Flocalhost%3A9876%2Fbase%2Fapp%2Fvendor%2Fionic%2Fjs%2Fionic.bundle.js%3Fc831b8acc7a0236bfa0e165643f63a87fc5028c2%3A9%3A463798)%0A%20%20%20%20at%20Object.invoke%20(http%3A%2F%2Flocalhost%3A9876%2Fbase%2Fapp%2Fvendor%2Fionic%2Fjs%2Fionic.bundle.js%3Fc831b8acc7a0236bfa0e165643f63a87fc5028c2%3A9%3A465396)%0A%20%20%20%20at%20runInvokeQueue%20(http%3A%2F%2Flocalhost%3A9876%2Fbase%2Fapp%2Fvendor%2Fionic%2Fjs%2Fionic.bundle.js%3Fc831b8acc7a0236bfa0e165643f63a87fc5028c2%3A9%3A460680)%0A%20%20%20%20at%20http%3A%2F%2Flocalhost%3A9876%2Fbase%2Fapp%2Fvendor%2Fionic%2Fjs%2Fionic.bundle.js%3Fc831b8acc7a0236bfa0e165643f63a87fc5028c2%3A9%3A461183%0A%20%20%20%20at%20forEach%20(http%3A%2F%2Flocalhost%3A9876%2Fbase%2Fapp%2Fvendor%2Fionic%2Fjs%2Fionic.bundle.js%3Fc831b8acc7a0236bfa0e165643f63a87fc5028c2%3A9%3A344962)%0A%20%20%20%20at%20loadModules%20(http%3A%2F%2Flocalhost%3A9876%2Fbase%2Fapp%2Fvendor%2Fionic%2Fjs%2Fionic.bundle.js%3Fc831b8acc7a0236bfa0e165643f63a87fc5028c2%3A9%3A459944)%0A%20%20%20%20at%20Object.createInjector%20%5Bas%20injector%5D%20(http%3A%2F%2Flocalhost%3A9876%2Fbase%2Fapp%2Fvendor%2Fionic%2Fjs%2Fionic.bundle.js%3Fc831b8acc7a0236bfa0e165643f63a87fc5028c2%3A9%3A455833)%0A%20%20%20%20at%20workFn%20(http%3A%2F%2Flocalhost%3A9876%2Fbase%2Fapp%2Fvendor%2Fangular-mocks%2Fangular-mocks.js%3F9b2f896e2280af56bbea0f98157c7fcc5f9f673a%3A9%3A65096)
+    at http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:339761
+    at http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:462516
+    at forEach (http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:344962)
+    at loadModules (http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:459944)
+    at Object.createInjector [as injector] (http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:455833)
+    at workFn (http://localhost:9876/base/app/vendor/angular-mocks/angular-mocks.js?9b2f896e2280af56bbea0f98157c7fcc5f9f673a:9:65096)</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">HomeCtrl should ...</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Error: [$injector:unpr] Unknown provider: isUserAuthdProvider &lt;- isUserAuthd &lt;- HomeCtrl
+http://errors.angularjs.org/1.3.6/$injector/unpr?p0=isUserAuthdProvider%20%3C-%20isUserAuthd%20%3C-%20HomeCtrl
+    at http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:339761
+    at http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:455320
+    at Object.getService [as get] (http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:463798)
+    at http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:455624
+    at getService (http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:463798)
+    at invoke (http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:465396)
+    at Object.instantiate (http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:466060)
+    at http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:603844
+    at null.&lt;anonymous&gt; (http://localhost:9876/base/app/modules/partial/home/home-spec.js?281d0ae3567b1f0050879e0e467b836b4fe112db:9:461)
     at Object.invoke (http://localhost:9876/base/app/vendor/ionic/js/ionic.bundle.js?c831b8acc7a0236bfa0e165643f63a87fc5028c2:9:465685)
-    at workFn (http://localhost:9876/base/app/vendor/angular-mocks/angular-mocks.js?9b2f896e2280af56bbea0f98157c7fcc5f9f673a:9:65660)
 Error: Declaration Location
     at window.inject.angular.mock.inject (http://localhost:9876/base/app/vendor/angular-mocks/angular-mocks.js?9b2f896e2280af56bbea0f98157c7fcc5f9f673a:9:63674)
-    at null.&lt;anonymous&gt; (http://localhost:9876/base/app/modules/partial/form/form-spec.js?cf1f7ee788a48056ad40dc5a52b64db295683c76:9:884)
-    at http://localhost:9876/base/app/modules/partial/form/form-spec.js?cf1f7ee788a48056ad40dc5a52b64db295683c76:9:39</div>
+    at null.&lt;anonymous&gt; (http://localhost:9876/base/app/modules/partial/home/home-spec.js?281d0ae3567b1f0050879e0e467b836b4fe112db:9:278)
+    at http://localhost:9876/base/app/modules/partial/home/home-spec.js?281d0ae3567b1f0050879e0e467b836b4fe112db:9:39</div>
     </div>
   </div>
   
@@ -274,7 +342,7 @@ document.body.onkeypress = function (e) {
   switch (e.keyCode) {
     case 102: toggleFold(); break;
     case 49: showSummary(); break;
-    case 50: showFailures(); break;
+    case 50: showFailures(); break;case 50: showFailures(); break;
   }
 };
 

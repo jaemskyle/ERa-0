@@ -12,14 +12,18 @@ angular.module('ERChart').controller('SignupCtrl',function($scope, $timeout, $fi
     erAuthObj.$createUser($scope.signup).then(function(signupSuccess){
       var userObj = {"_fbuid": signupSuccess.uid,
                      cred: {
-                       "name": $scope.signup.name || null,
+                       "name": $scope.signup.firstName + ' ' + $scope.signup.lastName || null,
+                       "first_name": $scope.signup.firstName || null,
+                       "last_name": $scope.signup.lastName || null,
+                       "email": $scope.signup.email || null,
                        "hospital": $scope.signup.hospital || null,
                        "province": $scope.signup.province || null
                      }};
       erFBUsersSync.$push(userObj).then(function(newUserAddedToFBC){
         eruser.localSetAuthdUser(signupSuccess.uid, userObj).then(function(localUserCreated){
           erAuthObj.$authWithPassword($scope.signup).then(function(loginSuccess){
-            $state.go("pincode");
+            // $state.go("pincode");
+            $state.go("root.home");
           },function(loginFail){
             $log.error("loginFailed");
           }).finally( function(){ $scope.signup = {};

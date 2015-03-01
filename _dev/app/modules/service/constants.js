@@ -5,15 +5,15 @@ angular.module('ERChart').factory('constants',function() {
     FB_USERS_URL : "https://era.firebaseio.com/users/",
     options : [
       {
-        label: 'not applicable',
+        label: 'N/A',
         value: 0
       },
       {
-        label: 'Abnormal',
+        label: 'Ab',
         value: 1
       },
       {
-        label: 'Normal',
+        label: 'N',
         value: 2
       }
     ],

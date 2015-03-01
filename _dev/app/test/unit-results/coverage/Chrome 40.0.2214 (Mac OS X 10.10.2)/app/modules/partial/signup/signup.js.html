@@ -195,20 +195,20 @@
     </style>
 </head>
 <body>
-<div class="header high">
+<div class="header medium">
     <h1>Code coverage report for <span class="entity">app/modules/partial/signup/signup.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">100% <small>(1 / 1)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">50% <small>(10 / 20)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Functions: <span class="metric">100% <small>(1 / 1)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">10% <small>(1 / 10)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Lines: <span class="metric">100% <small>(1 / 1)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">50% <small>(10 / 20)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
@@ -219,18 +219,132 @@
 <tr><td class="line-count">1
 2
 3
-4</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">angular.module('ERChart').controller('SignupCtrl',function($scope){
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"user strict";
+angular.module('ERChart').controller('SignupCtrl',function($scope, $timeout, $firebase, $firebaseAuth, $state, eruser, constants,$log){
+  var erfireusers,erAuthObj; 
+  erFireBaseUrl = new Firebase(constants.FB_URL);
+  erFBUsersUrlRef = new Firebase(constants.FB_USERS_URL);
+  erFBUsersSync = $firebase(erFBUsersUrlRef);
+  erAuthObj = $firebaseAuth(erFireBaseUrl);
 &nbsp;
+  $scope.signup = {};
+  $scope.cred = {};
+  this.signup = <span class="fstat-no" title="function not covered" >function(){</span>
+<span class="cstat-no" title="statement not covered" >    erAuthObj.$createUser($scope.signup).then(<span class="fstat-no" title="function not covered" >function(signupSuccess){</span></span>
+<span class="cstat-no" title="statement not covered" >      var userObj = {"_fbuid": signupSuccess.uid,</span>
+                     cred: {
+                       "name": $scope.signup.firstName + ' ' + $scope.signup.lastName || null,
+                       "first_name": $scope.signup.firstName || null,
+                       "last_name": $scope.signup.lastName || null,
+                       "email": $scope.signup.email || null,
+                       "hospital": $scope.signup.hospital || null,
+                       "province": $scope.signup.province || null
+                     }};
+<span class="cstat-no" title="statement not covered" >      erFBUsersSync.$push(userObj).then(<span class="fstat-no" title="function not covered" >function(newUserAddedToFBC){</span></span>
+<span class="cstat-no" title="statement not covered" >        eruser.localSetAuthdUser(signupSuccess.uid, userObj).then(<span class="fstat-no" title="function not covered" >function(localUserCreated){</span></span>
+<span class="cstat-no" title="statement not covered" >          erAuthObj.$authWithPassword($scope.signup).then(<span class="fstat-no" title="function not covered" >function(loginSuccess){</span></span>
+            // $state.go("pincode");
+<span class="cstat-no" title="statement not covered" >            $state.go("root.home");</span>
+          },<span class="fstat-no" title="function not covered" >function(loginFail){</span>
+<span class="cstat-no" title="statement not covered" >            $log.error("loginFailed");</span>
+          }).finally( <span class="fstat-no" title="function not covered" >function(){</span> <span class="cstat-no" title="statement not covered" >$scope.signup = {};</span>
+                         });
+        });
+      }, <span class="fstat-no" title="function not covered" >function(failedToAddUserToFBC){</span>
+<span class="cstat-no" title="statement not covered" >        $log.error("failedToAddUserUp");</span>
+      });
+    }, <span class="fstat-no" title="function not covered" >function(signupFail){</span>
+<span class="cstat-no" title="statement not covered" >      $log.error(signupFail);</span>
+    });
+  };
+  
 &nbsp;
-});</pre></td></tr>
+});
+&nbsp;</pre></td></tr>
 </table></pre>
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Feb 10 2015 00:27:21 GMT-0500 (EST)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Feb 28 2015 17:25:32 GMT-0500 (EST)</div>
 </div>
 
 <script src="../../../../prettify.js"></script>

@@ -5,6 +5,8 @@ angular.module('ERChart').controller('HomeCtrl',function($scope, cache, $interva
   var allCharts = [];
   this.showListDelete = false;
 
+  console.log(isUserAuthd);
+
   // get auth user from firebase                                     
   // $scope.authObj = $firebaseAuth(users_base_url);
   // var authData = $scope.authObj.$getAuth();
@@ -13,7 +15,7 @@ angular.module('ERChart').controller('HomeCtrl',function($scope, cache, $interva
   // er_user = Immutable.fromJS(angular.fromJson(eruser.localGetFBAuthdUser()));
   // console.log(er_user.get('token'));
 
-    getUserStore();
+  getUserStore();
   $scope.$on('CacheUpdate:Updated', function(event, args){
     init();
     getUserStore();
@@ -26,6 +28,7 @@ angular.module('ERChart').controller('HomeCtrl',function($scope, cache, $interva
     collection =  Immutable.List(collection).toArray()
     $rootScope.safeApply(function(){
         $scope.charts = collection;
+        console.log('---$SCOPE.CHARTS.LENGTH--- ', $scope.charts.length);
     });
     
     // $scope.charts = Immutable.List(collection).toArray();
@@ -36,6 +39,7 @@ angular.module('ERChart').controller('HomeCtrl',function($scope, cache, $interva
     if (angular.isArray(charts)){
       charts = Immutable.List(charts)
 
+      // update specific location inside a map
       // chart = charts.getIn([2])
       // chart = Immutable.Map(chart).updateIn(["id"], function(v){return v = "emacs"});
       // charts = charts.setIn([1], chart.toObject());
@@ -47,6 +51,8 @@ angular.module('ERChart').controller('HomeCtrl',function($scope, cache, $interva
       $log.error("@fn initCharts (param) is not an array");
       $log.error(charts);
     }
+
+    // batch mutate list returning a new list
     // .withMutations(function(charts){
     // charts.unshift({id:"a"})
     //       .unshift({id:"b"})
@@ -55,52 +61,73 @@ angular.module('ERChart').controller('HomeCtrl',function($scope, cache, $interva
     // })
   };
   function removeOne(key){
-    if (angular.isArray($scope.charts)){
-      var charts = Immutable.List($scope.charts);
-      charts = charts.delete(key);
-      setChartScope(charts);
-    }
+    eruser.localGetFBAuthdUser().then(function(isLoggedIn){
+      if (!isLoggedIn){
+      } else {
+        if (angular.isArray($scope.charts)){
+          var charts = Immutable.List($scope.charts);
+          charts = charts.delete(key);
+          setChartScope(charts);
+        }
+      }//endif
+    });
   };
+                                       
+                                       
   function getUserStore(){
-    $q.all([cache.getStoreKeys, eruser.localGetFBAuthdUser]).then(
-      function(depsRes){
-        depsRes[1]().then(function(res1){
-          return angular.fromJson( res1 ).uid;
-        }).then(function(uid){
-          depsRes[0]().then(function(res0){
-            angular.forEach(res0, function(v,k){
-              console.log(v, uid);
-              if (angular.equals(uid, v)){
-                eruser.localGetAuthdUser(v)
-                  .then(function(localAuthdUser){
-                    console.log(localAuthdUser);
-                    initCharts(localAuthdUser.charts);
-                  })
-              }
-            });
-          })
+    eruser.localGetFBAuthdUser().then(function(isLoggedIn){
+      if (!isLoggedIn){
+        cache.getLocalData().then(function(publicList){
+            initCharts(publicList);
         });
-      }
-    );
+      } else {
+        $q.all([cache.getStoreKeys, eruser.localGetFBAuthdUser]).then(
+          function(depsRes){
+            depsRes[1]().then(function(res1){
+              return angular.fromJson( res1 ).uid;
+            }).then(function(uid){
+              depsRes[0]().then(function(res0){
+                angular.forEach(res0, function(v,k){
+                  console.log(v, uid);
+                  if (angular.equals(uid, v)){
+                    eruser.localGetAuthdUser(v).then(function(localAuthdUser){
+                        console.log(localAuthdUser);
+                        initCharts(localAuthdUser.charts);
+                      })
+                  }
+                });
+              })
+            });
+          });
+      } //endif
+    })
     
-    // cache.getLocalData().then(function(r){
-    //     initCharts(r);
-    // });
-  };
+    };
   function writeIn(charts){
-    if ( angular.isArray(charts) ) {
-      eruser.localGetFBAuthdUser().then(function(currentUser){
-        return currentUser;
-      }).then(function(currentUser){
-        eruser.localSetAuthdUser(angular.fromJson(currentUser).uid, { charts: charts }, true).then(
-          function(setSuccess){
-            console.log("setSuccess");
-          }
-        );
-      })
-    } else {
-      console.log("@fn writeIn (param) must be a native array");
-    }
+    eruser.localGetFBAuthdUser().then(function(isLoggedIn){
+      if (!isLoggedIn){
+
+        cache.writeLocalData(charts).then(function(localChartsUpdated){
+          $log.info("local charts updated.");
+        });
+
+      } else {
+        if ( angular.isArray(charts) ) {
+          eruser.localGetFBAuthdUser().then(function(currentUser){
+            return currentUser;
+          }).then(function(currentUser){
+            eruser.localSetAuthdUser(angular.fromJson(currentUser).uid, { charts: charts }, true)
+              .then(function(setSuccess){
+                console.log("setSuccess");
+              }
+            );
+          })
+        } else {
+          $log.error("@fn writeIn (param) must be a native array");
+        }//endif
+      }//endif
+    });
+    
   };
 
   
@@ -147,25 +174,32 @@ angular.module('ERChart').controller('HomeCtrl',function($scope, cache, $interva
       }
     });
   };
-
   this.canSwipeList = function(){
     return true;
   };
   this.deleteItem = function(item, index){
-    removeOne(index);
-    return false;
-    var charts = Immutable.Stack($scope.charts).toOrderedMap();
-    charts = charts.remove(index);
-    charts = Immutable.Stack(charts);
-    setChartScope(charts);
-    return false;
-    if (!index && allExForms.length === 1){
-      allExForms = [];
-      syncScopeToLocal();
-    } else {
-      prepForDelete(item, index);
-    }
+    
+    eruser.localGetFBAuthdUser().then(function(isLoggedIn){
+      
+        if (isLoggedIn){
+        removeOne(index);
+
+        // var charts = Immutable.Stack($scope.charts).toOrderedMap();
+        // charts = charts.remove(index);
+        // charts = Immutable.Stack(charts);
+        // setChartScope(charts);
+      } else {
+        
+        if (!index && allExForms.length === 1){
+          allExForms = [];
+          syncScopeToLocal();
+        } else {
+          prepForDelete(item, index);
+        }
+      }//endif
+    });
   };
+
   this.editItem = function(form){
     $timeout(function(){
       $state.transitionTo('root.edit', {formId: form.id});
@@ -179,6 +213,4 @@ angular.module('ERChart').controller('HomeCtrl',function($scope, cache, $interva
   // cache.getStoreKeys().then(function(keys){
   //   console.log(keys);
   // });
-  
-
-});
+  });

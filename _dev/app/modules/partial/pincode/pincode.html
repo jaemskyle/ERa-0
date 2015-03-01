@@ -1,5 +1,4 @@
-<ion-view view-title="Enter Your Pin" hide-back-button="true"
-          ng-controller="PincodeCtrl as pin">
+<ion-view view-title="Enter Your Pin" hide-back-button="true">
   <ion-content class="bg-login">
     <div class="row responsive-sm">
       <div class=" col-offset-33 col-33 col">
@@ -20,6 +19,9 @@
         </section>
         
       </div>
+    </div>
+    <div class="row responsive-sm">
+      <a class="button button-default" ng-click="pin.logout()">Switch User</a>
     </div>
   </ion-content>
 </ion-view>

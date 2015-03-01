@@ -1,7 +1,42 @@
-angular.module('ERChart').directive('erform', function($state, constants, $timeout, cache, $log, $stateParams, $ionicPopup, $q, erutils, $document, eruser) {
+angular.module('ERChart').directive('erform', function($state, constants, $timeout, cache, $log, $stateParams, $ionicPopup, $q, erutils, $document, eruser, $firebase, $firebaseAuth) {
   return  function($scope, $elem, $attr, $transclude){
+    var erFBUsersUrlRef = new Firebase(constants.FB_USERS_URL);
+    var erFBUsersSync = $firebase(erFBUsersUrlRef).$asObject();
+    var erAuthObj = $firebaseAuth(erFBUsersUrlRef);
+    var authData = erAuthObj.$getAuth();
     var currentChart = {}; 
     var allCharts = []; 
+
+    erFBUsersSync.$loaded().then(function(data){
+      console.log("$loaded", data);
+        angular.forEach(erFBUsersSync, function(v,k){
+          if (angular.equals(authData.uid, v._fbuid)) {
+            cache.getStoreKeys().then(function(keys){
+                if (!_.includes(keys, authData.uid)){
+                  var newUser = {
+                    _fbuid: authData.uid,
+                    cred: {
+                      name: v.cred.name,
+                      first_name: v.cred.first_name,
+                      last_name: v.cred.last_name,
+                      email: v.cred.email || null,
+                      hospital: v.cred.hospital
+                    },
+                    charts: []
+                  };
+                  eruser.localSetAuthdUser(authData.uid, newUser).then(function(newUserCreated){
+                    $log.debug("New User Created.", newUserCreated);
+                  })
+                } else {
+                  $log.info("A user with id: "+ authData.uid + "is already defined.");
+                }
+            });
+          }
+        });
+    });
+    console.log(authData.uid);
+
+    
 
     var navigateToHome = function(){
       $state.go('root.home');
@@ -201,19 +236,18 @@ angular.module('ERChart').directive('erform', function($state, constants, $timeo
       $scope.ExaminationForm.id.$render();
       $scope.ExaminationForm.id.$commitViewValue();
       
+      // TODO refactor not to use for loop
       for (var i = 0, list = ['heent', 'resp', 'abdo', 'cardiov', 'neuro'], listLen = list.length; i<listLen; i++){
         setModuleStatus($scope[list[i]].cat_name, 
-                        function() {
-                          if (angular.isObject(state_data)){
-                            // get saved data when editting
-                            return getSavedFieldValue(state_data[$scope[list[i]].cat_name], 'status', 'input', $scope[list[i]].cat_name);
-                          } else {
-                            // set module:default
-                            return setModuleStatus(list[i], 'status', 'default');
-                          }
-                        },
-                        state_data
-                       );
+        function() {
+          if (angular.isObject(state_data)){
+            // get saved data when editting
+            return getSavedFieldValue(state_data[$scope[list[i]].cat_name], 'status', 'input', $scope[list[i]].cat_name);
+          } else {
+            // set module:default
+            return setModuleStatus(list[i], 'status', 'default');
+          }
+        }, state_data);
       };
       // resp
       for (var i = 0, 
@@ -329,6 +363,8 @@ angular.module('ERChart').directive('erform', function($state, constants, $timeo
 
     var addChart = function(){
       var deferred = $q.defer();
+      console.log("--CHART PRINTED-- "+ $scope.chart.printed)
+
       allCharts.unshift(angular.extend($scope.chart, {
         _erid: new Date() + $scope.chart.id,
         date: moment().format('YYYY-MM-DD'),
@@ -344,109 +380,189 @@ angular.module('ERChart').directive('erform', function($state, constants, $timeo
       return deferredFilteredCharts.promise;
     };
 
-    var initNewChart = function(chartStatus){
-      eruser.localGetAuthdUser().then(function(user){
-        if (!user.charts) {
-          allCharts = []
-        } else {
-          allCharts = user.charts;
-        }
-      }).then(function(){
-        if (angular.isObject(chartStatus)) {
-          addChart().then(function(updatedCharts){
-                eruser.localGetFBAuthdUser()
-                  .then(function(currentUser){
-                    if (currentUser){
-                      eruser.localSetAuthdUser( angular.fromJson(currentUser).uid, {charts:updatedCharts}, true )
-                        .then(function(newChartAdded){
-                          $log.info("New Chart Added");
-                        }).finally(function(){
-                          navigateToHome();
-                        });
-                    } else {
-                      $log.error("@fn initNewChart currentUser is not defined!");
-                    }
-                  });
-            // cache.writeLocalData(updatedCharts).then(function(){
-            //   navigateToHome();
-            // });
-          });
-        } else {
-          showPatientIdPopup().then(function(popUpResult){
-            if (!popUpResult){
-              $state.go('root.home');
-            } else {
-              addChart().then(function(newChartsArray){
-                eruser.localGetFBAuthdUser()
-                  .then(function(currentUser){
-                    if (currentUser){
-                      eruser.localSetAuthdUser( angular.fromJson(currentUser).uid, {charts:newChartsArray}, true )
-                        .then(function(newChartAdded){
-                          $log.info("New Chart Added");
-                        }).finally(function(){
-                          navigateToHome();
-                        });
-                    } else {
-                      $log.error("@fn initNewChart currentUser is not defined!");
-                    }
-                  });
-
-                // cache.writeLocalData(newChartsArray).then(function(){
-                //   navigateToHome();
-                // });
-              });
-            }
-          })
-        }
-      })
-    };
-    var initEditChart = function(){
-      $q.all([cache.getStoreKeys, eruser.localGetFBAuthdUser])
-        .then(
-          function(resArray){
-            resArray[1]().then(function(userAuthdData){
-              return angular.fromJson( userAuthdData ).uid;
-              console.log(uid)
-            }).then(function(userKey){
-              eruser.localGetAuthdUser(userKey).then(function(authdUser){
-                if (!authdUser.charts){
-                  allCharts = [];
-                } else {
-                  allCharts = authdUser.charts;
-                }
-                angular.forEach(allCharts, function(chart, key){
-                  if ($stateParams.formId === chart.id) {
-                    setDefault(chart).then(function(formScope){
-                      formScope.$setPristine();
-                      formScope.$setUntouched();
-                    });
-                    currentChart = chart;
-                  }
+    function initNewChart_a(chartStatus, isLoggedIn, newChartsArray){
+      // not loggedin && chart-status is ok
+      if (angular.isObject( chartStatus ) && !isLoggedIn){
+        addChart().then(function(newChartsArray){
+          eruser.localGetFBAuthdUser()
+            .then(function(currentUser){
+              if (currentUser){
+                cache.writeLocalData(newChartsArray).then(function(){
+                  navigateToHome();
                 });
-              })
+              } else {
+                $log.error("@fn initNewChart_a currentUser is not defined! Adding to public instead.");
+                cache.writeLocalData(newChartsArray).then(function(){
+                  navigateToHome();
+                });
+              }
             });
 
-          }, function(err){
-            $log.error("@fn initEditChart failed to initialize current chart scope!");
+        });
+        // not loggedIn && chart-status is invalid
+      } else if (angular.isString(chartStatus) && !isLoggedIn) {
+        showPatientIdPopup().then(function(popUpResult){
+          if (!popUpResult){
+            $state.go('root.home');
+          } else {
+            addChart().then(function(newChartsArray){
+              eruser.localGetFBAuthdUser()
+                .then(function(currentUser){
+                  if (currentUser){
+                    cache.writeLocalData(newChartsArray).then(function(){
+                      navigateToHome();
+                    });
+                  } else {
+                    $log.error("@fn initNewChart_a currentUser is not defined! Adding to public instead.");
+                    cache.writeLocalData(newChartsArray).then(function(){
+                      navigateToHome();
+                    });
+                  }
+                });
+
+            });
+          }
+        });//end:showPatientIdPopup
+
+        // loggedin
+      } else {
+        addChart().then(function(updatedCharts){
+          // logged in and chart-status is ok
+          if (angular.isObject(chartStatus)){
+              eruser.localGetFBAuthdUser()
+                .then(function(currentUser){
+                  if (currentUser){
+                    eruser.localSetAuthdUser( angular.fromJson(currentUser).uid, {"charts":newChartsArray}, true )
+                      .then(function(newChartAdded){
+                        $log.info("New Chart Added");
+                      }).finally(function(){
+                        navigateToHome();
+                      });
+                  } else {
+                    $log.error("@fn initNewChart_a:else currentUser is not defined! Adding to public instead");
+                    // cache.writeLocalData(updatedCharts).then(function(){
+                    //   navigateToHome();
+                    // });
+                  }
+                });
+
+          // loggedin but chart-status is invalid
+          } else {
+                showPatientIdPopup().then(function(popUpResult){
+                  if (!popUpResult){
+                    $state.go('root.home');
+                  } else {
+                    eruser.localGetFBAuthdUser()
+                      .then(function(currentUser){
+                        if (currentUser){
+                          eruser.localSetAuthdUser( angular.fromJson(currentUser).uid, {charts:newChartsArray}, true )
+                            .then(function(newChartAdded){
+                              $log.info("New Chart Added");
+                            }).finally(function(){
+                              navigateToHome();
+                            });
+                        } else {
+                          $log.error("@fn initNewChart currentUser is not defined! Adding to public instead.");
+                          cache.writeLocalData(newChartsArray).then(function(){
+                            navigateToHome();
+                          });
+                        }
+                      });
+
+                  }//endelse
+                });//end:showPatientIdPopup
+            //endelse
+          }
+        });//end:addCharts
+      }
+     };
+   
+
+    var initNewChart = function(chartStatus){
+      $log.info("---INITIALISING NEW CHART---")
+
+      eruser.localGetFBAuthdUser().then(function(isLoggedIn){
+        if (isLoggedIn) {
+          $log.info("---USER IS LOGGED IN---")
+          eruser.localGetAuthdUser().then(function(authdUserData){
+
+            $log.debug("---authdUserData--- "+ angular.toJson( authdUserData ));
+            /*
+            * TODO
+            * if authdUserData.charts is undefined
+            * then create a new record.
+            *
+            */
+            cache.getStoreKeys().then(function(keys){
+              console.log("---KEYS---"+ keys);
+            });
+
+            allCharts = authdUserData.charts;
+            initNewChart_a(chartStatus, isLoggedIn, allCharts);        
+            
+          })
+        } else {
+          $log.info("---USER IS NOT AUTHENTICATED---");
+          cache.getLocalData().then(function(publicCharts){
+            allCharts = publicCharts;
+            initNewChart_a(chartStatus, isLoggedIn, allCharts);
           });
+        }
+      });//end:localGetFBAuthdUser
+    };
       
-      // cache.getLocalData().then(function(successData){
-      //   if (!successData) {
-      //     allCharts = []
-      //   } else {
-      //     allCharts = successData;
-      //   }
-      // }).then(function(){
-      //   angular.forEach(allCharts, function(chart, key){
-      //     if ($stateParams.formId === chart.id) {
-      //       setDefault(chart).then(function(formScope){
-      //         formScope.$setPristine();
-      //         formScope.$setUntouched();
-      //       });
-      //       currentChart = chart;
-      //     }
-      //   });
-      // });
+    
+    var initEditChart = function(){
+      eruser.localGetFBAuthdUser().then(function(isLoggedIn){
+        if (isLoggedIn) {
+            $q.all([cache.getStoreKeys, eruser.localGetFBAuthdUser])
+              .then(
+                function(resArray){
+                  resArray[1]().then(function(userAuthdData){
+                    return angular.fromJson( userAuthdData ).uid;
+                    console.log(uid)
+                  }).then(function(userKey){
+                    eruser.localGetAuthdUser(userKey).then(function(authdUser){
+                      if (!authdUser.charts){
+                        allCharts = [];
+                      } else {
+                        allCharts = authdUser.charts;
+                      }
+                      angular.forEach(allCharts, function(chart, key){
+                        if ($stateParams.formId === chart.id) {
+                          setDefault(chart).then(function(formScope){
+                            formScope.$setPristine();
+                            formScope.$setUntouched();
+                          });
+                          currentChart = chart;
+                        }
+                      });
+                    })
+                  });
+
+                }, function(err){
+                  $log.error("@fn initEditChart failed to initialize current chart scope!");
+                });
+        } else {
+            cache.getLocalData().then(function(successData){
+              if (!successData) {
+                allCharts = []
+              } else {
+                allCharts = successData;
+              }
+              angular.forEach(allCharts, function(chart, key){
+                if ($stateParams.formId === chart.id) {
+                  setDefault(chart).then(function(formScope){
+                    formScope.$setPristine();
+                    formScope.$setUntouched();
+                  });
+                  currentChart = chart;
+                }
+              });
+            });
+        }
+      });
+      
     };
     var initSaveChart = function(){
       console.log('---initializing SaveChart---')
@@ -476,14 +592,14 @@ angular.module('ERChart').directive('erform', function($state, constants, $timeo
                         });
                     } else {
                       $log.error("@fn initNewChart currentUser is not defined!");
+                        cache.writeLocalData(updatedCharts).then(function(){
+                          console.log('---new chart add to local store successfully...---')
+                        }).finally(function(){
+                          console.log('---all clear > going back to home.---')
+                          navigateToHome();
+                        });
                     }
                   });
-            // cache.writeLocalData(updatedCharts).then(function(){
-            //   console.log('---new chart add to local store successfully...---')
-            // }).finally(function(){
-            //   console.log('---all clear > going back to home.---')
-            //   navigateToHome();
-            // });
           });
         });
       }
@@ -564,7 +680,9 @@ angular.module('ERChart').directive('erform', function($state, constants, $timeo
       $scope.ExaminationForm.reflex.$render();
       $scope.ExaminationForm.reflex.$commitViewValue();
 
-      var page = document.getElementById("form");
+      $scope.chart.signature = setSignature();
+
+      var page = $elem.parent()[0];
       return page;
     };
 
@@ -593,7 +711,13 @@ angular.module('ERChart').directive('erform', function($state, constants, $timeo
           printDone();
         });
       });
+    };
 
+    function setSignature (){
+      eruser.localGetAuthdUser().then(function(authdUser){
+        $scope.chart.signature = authdUser.cred.first_name + ' ' + authdUser.cred.last_name;
+        return $scope.chart.signature;
+      });
     };
 
     $scope.$on('PageEvent:Print', function(event, args){
@@ -618,26 +742,34 @@ angular.module('ERChart').directive('erform', function($state, constants, $timeo
     $scope.$on('PageEvent:UpdateChart', function(event, args){
       // console.log('Event@erForm:: PageEvent:UpdateChart')
       if (!$scope.ExaminationForm.$invalid && $state.is('root.edit')){
-        // if editting current chart and form became invalid (id is missing) :
+        // if editting current chart and form became invalid (id is missing)
         initSaveChart()
       }
     });
     $scope.$on('PageEvent:GoHome', function(event, args){
-      // console.log('Event@erForm:: PageEvent:GoHome')
+      // console.log('Event@erForm:: PageEvent:GoHome');
+      
+      // alert('-----$YO ' + $scope.ExaminationForm.$pristine + '\n' +
+      //                           $scope.ExaminationForm.$dirty + '\n' +
+      //                           $scope.ExaminationForm.$valid + '\n' +
+      //                           $state.is('root.edit') + '\n' +
+      //                           $state.is('root.form') + '\n'
+      // );
 
       if ($scope.ExaminationForm.$pristine && !$scope.ExaminationForm.$dirty){
         // if form is untouched and user decided not to continue filling the form: 
         $state.go('root.home');
       } else if (!$scope.ExaminationForm.$invalid && $state.is('root.edit')){
-        // if editting current chart and form became invalid (id is missing) :
+        // if editting current chart and form became invalid (id is missing) 
         initSaveChart()
-      } else if ($scope.ExaminationForm.$invalid && $state.is('root.form')){
+      } else if ($scope.ExaminationForm.$valid && $state.is('root.form')){
         // if creating new chart and user forgot to provide patient id:
         initSaveChart()
       }
     });
     $scope.$on('PageEvent:isAdd', function(){
       // console.log('PageEvent:isAdd');
+      setSignature();
       $timeout(function(){
         setDefault('default').then(function(formScope){
           formScope.$setPristine();
@@ -648,6 +780,7 @@ angular.module('ERChart').directive('erform', function($state, constants, $timeo
     });
     $scope.$on('PageEvent:isEdit', function(){
       console.log('PageEvent:isEdit');
+      setSignature();
       initEditChart();
     });
 

@@ -199,16 +199,16 @@
     <h1>Code coverage report for <span class="entity">app/modules/service/cache.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">36.36% <small>(4 / 11)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">28.57% <small>(4 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
         Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Functions: <span class="metric">25% <small>(2 / 8)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">10% <small>(1 / 10)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Lines: <span class="metric">36.36% <small>(4 / 11)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">28.57% <small>(4 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
@@ -245,20 +245,52 @@
 27
 28
 29
-30</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -272,34 +304,50 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">6</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">angular.module('ERChart').factory('cache',function($localForage, $rootScope) {
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+angular.module('ERChart').factory('cache',function($localForage, $rootScope) {
+  var userRecord = Immutable.Record({
+    _fbuid: null,
+    cred: {
+      name: null,
+      hospital: null,
+      province: null
+    },
+    charts: []
+  });
 &nbsp;
 	var cache = {
-        getStoreLength: <span class="fstat-no" title="function not covered" >function () {</span>
-<span class="cstat-no" title="statement not covered" >            return $localForage.length();</span>
-        },
-        getStoreKeys: <span class="fstat-no" title="function not covered" >function () {</span>
-<span class="cstat-no" title="statement not covered" >            return $localForage.keys();</span>
-        },
-        writeLocalData: <span class="fstat-no" title="function not covered" >function (data) {</span>
-<span class="cstat-no" title="statement not covered" >            return $localForage.setItem('ExForms', data);</span>
-        },
-        getLocalData: function () {
-            return $localForage.getItem('ExForms');
-        },
-        clearCachedItem: <span class="fstat-no" title="function not covered" >function (item) {</span>
-<span class="cstat-no" title="statement not covered" >            return $localForage.removeItem(item);</span>
-        },
-        clearAllCached: <span class="fstat-no" title="function not covered" >function () {</span>
-<span class="cstat-no" title="statement not covered" >            return $localForage.clear();</span>
-        },
-        broadcastCacheEvent: <span class="fstat-no" title="function not covered" >function (eventType) {</span>
-<span class="cstat-no" title="statement not covered" >            console.log('broadcasting: ' + eventType);</span>
-<span class="cstat-no" title="statement not covered" >            $rootScope.$broadcast('CacheUpdate:' + eventType);</span>
-        }
-    };
+    setChartStore: <span class="fstat-no" title="function not covered" >function(userKey, collection){</span>
+<span class="cstat-no" title="statement not covered" >      return $localForage.setItem(userKey, collection);</span>
+    },
+    getChartStore: <span class="fstat-no" title="function not covered" >function(userKey){</span>
+<span class="cstat-no" title="statement not covered" >      return $localForage.getItem(userKey);</span>
+    },
+    getStoreLength: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >      return $localForage.length();</span>
+    },
+    getStoreKeys: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >      return $localForage.keys();</span>
+    },
+    writeLocalData: <span class="fstat-no" title="function not covered" >function (data) {</span>
+<span class="cstat-no" title="statement not covered" >      return $localForage.setItem('ExForms', data);</span>
+    },
+    getLocalData: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >      return $localForage.getItem('ExForms');</span>
+    },
+    clearCachedItem: <span class="fstat-no" title="function not covered" >function (item) {</span>
+<span class="cstat-no" title="statement not covered" >      return $localForage.removeItem(item);</span>
+    },
+    clearAllCached: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >      return $localForage.clear();</span>
+    },
+    broadcastCacheEvent: <span class="fstat-no" title="function not covered" >function (eventType) {</span>
+<span class="cstat-no" title="statement not covered" >      console.log('broadcasting: ' + eventType);</span>
+<span class="cstat-no" title="statement not covered" >      $rootScope.$broadcast('CacheUpdate:' + eventType);</span>
+    }
+  };
 &nbsp;
 	return cache;
 });
@@ -308,7 +356,7 @@
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Feb 10 2015 00:27:21 GMT-0500 (EST)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Feb 28 2015 17:25:32 GMT-0500 (EST)</div>
 </div>
 
 <script src="../../../prettify.js"></script>

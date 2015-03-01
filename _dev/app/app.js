@@ -32,7 +32,7 @@ angular.module('ERChart').config(function($stateProvider, $urlRouterProvider, $l
     views: {
       '@': {
         templateUrl: 'modules/partial/forgot/forgot.html',
-        controller: 'ForgotCtrl'
+        controller: 'ForgotCtrl as forgot'
       }
     }
   });
@@ -40,8 +40,12 @@ angular.module('ERChart').config(function($stateProvider, $urlRouterProvider, $l
     url: '/settings',
     views: {
       'rootContent': {
-        templateUrl: 'modules/partial/settings/settings.html'
+        templateUrl: 'modules/partial/settings/settings.html',
+        controller: "SettingsCtrl as settings"
       }
+    },
+    onEnter: function(erutils){
+      erutils.broadcastPageEvent('Init');
     }
   });
   $stateProvider.state('root.form', {
@@ -81,8 +85,7 @@ angular.module('ERChart').config(function($stateProvider, $urlRouterProvider, $l
           //   return Auth.$waitForAuth();
           // }
           'isUserAuthd': function(eruser){
-            return angular.isObject(eruser.isUserAuthd());
-            // return true;
+            return eruser.isUserAuthd();
           }
         },
         templateUrl: 'modules/partial/home/home.html',
@@ -94,18 +97,23 @@ angular.module('ERChart').config(function($stateProvider, $urlRouterProvider, $l
     url: '/pincode',
     views: {
       '@': {
-        // resolve: {
-        //     'waitForAuth': function(Auth){
-        //       return Auth.$waitForAuth();
-        //     }
-        // },
-        templateUrl: 'modules/partial/pincode/pincode.html'
+        resolve: {
+            // 'waitForAuth': function(Auth){
+            //   return Auth.$waitForAuth();
+            // }
+          // 'isUserAuthd': function(eruser){
+          //   return angular.isObject(eruser.isUserAuthd());
+          //   // return true;
+          // }
+        },
+        templateUrl: 'modules/partial/pincode/pincode.html',
+        controller: "PincodeCtrl as pin"
       }
     }
     
   });
 
-  $urlRouterProvider.otherwise('/pincode');
+  $urlRouterProvider.otherwise('/login');
   $localForageProvider.setNotify(true, true); // itemSet, itemRemove
   $localForageProvider.config({
     driver: window.localforage.LOCALSTORAGE,
@@ -121,15 +129,15 @@ angular.module('ERChart').run(function($rootScope,$state,$stateParams,$log,$fire
   $rootScope.$stateParams=$stateParams;
   $rootScope.$on('$stateChangeStart', 
                  function(event, toState, toParams, fromState, fromParams){
-                   // $log.info('--StateChangeStart--- '+angular.toJson(event));
+                   // $log.info('--StateChangeStart--- '+angular.toJson(event) + "\n" + angular.toJson(fromState) + "\n" + angular.toJson(toState));
                  });
   $rootScope.$on('$stateChangeSuccess', 
                  function(event, toState, toParams, fromState, fromParams){
-                   // $log.info('---StateChangeSuccess--- '+angular.toJson(event));
+                   // $log.info('---StateChangeSuccess--- '+angular.toJson(event) + "\n" + angular.toJson(fromState) + "\n" + angular.toJson(toState));
                  });
   $rootScope.$on('$stateChangeError', 
                  function(event, toState, toParams, fromState, fromParams){
-                   $log.error('event '+ angular.toJson(event) );
+                   // $log.error('event '+ angular.toJson(event) );
                    $state.go('login');
                  });
 
@@ -144,6 +152,8 @@ angular.module('ERChart').run(function($rootScope,$state,$stateParams,$log,$fire
       this.$apply(fn);
     }
   };
+
+
 
   ionic.Platform.ready(function(){
     document.addEventListener("resume", handleOnResume, false);
